@@ -4,6 +4,7 @@ import re
 from collections import deque
 import matplotlib.pyplot as plt
 import random
+import numpy as np
 
 from src.vrp.data.Data import *
 
@@ -14,8 +15,13 @@ class SVRPInstanceMaker:
         self.customers = []
         self.depots = []
         self.distances = []
+        self.shifts = 0
+        self.depotOperationCost = 0
         self.lvCost = 0
         self.hvCost = 0
+        self.demandMean = 0.0
+        self.demandSD = 0.0
+        self.shiftSwitchProb = 0.0
         self.clusters = 0
 
     def readCVRPInstance(self, path):
@@ -79,6 +85,14 @@ class SVRPInstanceMaker:
         for i in range(1,self.clusters+1):
             random.choice([c for c in self.customers if c.zone == i]).isDepot = True
 
+    def selectDayTimeCustomers(self, prob):
+        for i in range(1, self.clusters + 1):
+            clusterCustomers = [c for c in self.customers if c.zone == i and c.isDepot == False]
+            for c in clusterCustomers:
+                p = random.random()
+                if p <= prob:
+                    c.isDayCustomer = True
+
     def createNewInstance(self):
         # Open file dialog to select base vrp instance
         Tkinter.Tk().withdraw()
@@ -87,16 +101,39 @@ class SVRPInstanceMaker:
         # Read the selected instance file
         self.readCVRPInstance(path)
 
-        # Get the travel cost for leased and hired vehicles
-        self.lvCost = input("What's the travel cost for leased vehicles (per distance unit)? ")
-        self.hvCost = input("What's the travel cost for short term hired vehicles (per distance unit)? ")
+        # Get the number of shifts
+        self.shifts = input("How many shifts for the instance?: ")
 
-        # Create clusters of customers
-        num = input("How many customer clusters should we create: ")
-        self.createCustomerClusters(num)
+        # Get the cost for depot operation per vehicle:
+        self.depotOperationCost = input("What's the depot operational cost per vehicle?: ")
+
+        # Get the travel cost for leased and hired vehicles
+        self.lvCost = input("What's the travel cost for leased vehicles (per distance unit)?: ")
+        self.hvCost = input("What's the travel cost for short term hired vehicles (per distance unit)?: ")
+
+        # Get how many depots should be created
+        numDepots = input("How many depots should we create: ")
+
+        # Create customer clusters
+        self.createCustomerClusters(numDepots)
 
         # Randomly select a depot for each customer cluster
         self.setRandomDepots()
+
+        # Get proportion of "day time" Customers
+        dayProportion = input("Which proportion of customers should be day time? (0.0 to 1.0 are valid inputs): ")
+
+        # Select day time customers
+        self.selectDayTimeCustomers(dayProportion)
+
+        # Get demand distribution mean
+        self.demandMean = input("Enter the mean for the demand (normal) distribution function: ")
+
+        # Get demand distribution standard deviation
+        self.demandSD = input("Enter the standard deviation for the demand distribution function: ")
+
+        # Get shift switch probability
+        self.shiftSwitchProb = input("What's the probability of a customer changing demand to a different shift?: ")
 
         # Write the instance to file
         self.writeInstance()
@@ -105,18 +142,29 @@ class SVRPInstanceMaker:
         self.plotInstance()
 
     def writeInstance(self):
-        f = open("../../../Instances/new_instance.solver", "w")
+        f = open("../../../Instances/new_instance.svrp", "w")
 
         # Write number of customers
         f.write("DIMENSION: " + str(self.n) + "\n")
 
+        # Write number of shifts
+        f.write("SHIFTS: " + str(self.shifts) + "\n")
+
+        # Write depot operational cost per vehicle
+        f.write("DEPOT_COST:" + str(self.depotOperationCost) + "\n")
+
         # Write cost per leased and short hired vehicle
-        f.write("LV COST: " + str(self.lvCost) + "\n")
-        f.write("HV COST: " + str(self.hvCost) + "\n")
+        f.write("LV_COST: " + str(self.lvCost) + "\n")
+        f.write("HV_COST: " + str(self.hvCost) + "\n")
+
+        # Write demand distribution parameters
+        f.write("DEMAND_MEAN: " + str(self.demandMean) + "\n")
+        f.write("DEMAND_SD: " + str(self.demandSD) + "\n")
+        f.write("SHIFT_SWITCH_PROB: " + str(self.shiftSwitchProb) + "\n");
 
         # Write customer information
         f.write("NODE_COORD_SECTION \n")
-        self.customers.sort(key=lambda c : c.id)
+        self.customers.sort(key=lambda c: c.id)
         for c in self.customers:
             f.write(str(c.id) + "\t" + str(c.x) + "\t" + str(c.y) + "\t" + str(c.zone) + "\n")
 
@@ -125,22 +173,26 @@ class SVRPInstanceMaker:
         for d in [c for c in self.customers if c.isDepot == True]:
             f.write(str(d.id) + "\n")
 
+        # Write day time customers information
+        f.write("DAYTIME_CUSTOMERS_SECTION\n")
+        for c in self.customers:
+            if c.isDayCustomer == True:
+                f.write(str(c.id) + "\n")
+
         f.close()
 
     def plotInstance(self):
-        colors = ["y", "r", "c", "m", "b"]
-        cont = 0
-
         # plot customers
         for i in range(1, self.clusters+1):
-            plt.plot([c.x for c in self.customers if c.zone == i], [c.y for c in self.customers if c.zone == i], colors[cont] + "o")
-            cont += 1
-            if cont >= len(colors):
-                cont = 0
-
-        # plot depots
-        depots = [c for c in self.customers if c.isDepot == True]
-        plt.plot([c.x for c in depots], [c.y for c in depots], "k*")
+            color = np.random.rand(3,1)
+            for c in self.customers:
+                if c.zone == i:
+                    marker = "o"
+                    if c.isDepot:
+                        marker = "s"
+                    elif not c.isDayCustomer:
+                        marker = "^"
+                    plt.plot(c.x, c.y, color=color, marker=marker)
 
         plt.axis([0, max(self.customers, key=lambda c : c.x).x, 0, max(self.customers, key=lambda c : c.y).y])
         plt.grid()

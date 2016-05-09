@@ -1,4 +1,7 @@
+from __future__ import division
+
 import cplex
+import numpy as np
 import matplotlib.pyplot as plt
 
 from src.vrp.svrp.inputdata.Parameters import Parameters as params
@@ -52,20 +55,18 @@ class Solver:
             v.col = self.numCols
             v.depot = d
             self.variables[v.name] = v
-            self.lp.variables.add(obj=[params.deapotOperationCost], types=["I"], names=[v.name])
+            self.lp.variables.add(obj=[self.pdata.depotOperationCost], types=["I"], names=[v.name])
             self.numCols += 1
             numVars += 1
         return numVars
 
     def createXYVariables(self):
         numVars = 0
-        for t in range(params.numberOfShifts):
+        for t in range(self.pdata.shifts):
             for i in range(params.numberOfScenariosPerShift):
                 scenario = self.scenarios[t][i]
                 for cluster in scenario.clusterList:
                     for route in cluster.routes:
-                        distance = self.pdata.getRouteLength(route.customers)
-
                         # Create x variable
                         v = Variable()
                         v.type = Variable.v_x
@@ -77,7 +78,7 @@ class Solver:
                         v.depot = cluster.depot
                         v.route = route
 
-                        coef = (1 / params.numberOfScenariosPerShift) * self.pdata.lvCost * distance
+                        coef = float((1 / params.numberOfScenariosPerShift)) * self.pdata.lvCost * route.distance
                         self.variables[v.name] = v
                         self.lp.variables.add(obj=[coef], types=["B"], names=[v.name])
                         self.numCols += 1
@@ -94,7 +95,7 @@ class Solver:
                         v.depot = cluster.depot
                         v.route = route
 
-                        coef = (1 / params.numberOfScenariosPerShift) * self.pdata.hvCost * distance
+                        coef = (1 / params.numberOfScenariosPerShift) * self.pdata.hvCost * route.distance
                         self.variables[v.name] = v
                         self.lp.variables.add(obj=[coef], types=["B"], names=[v.name])
                         self.numCols += 1
@@ -122,7 +123,7 @@ class Solver:
 
     def fleetPerDepotConstraints(self):
         numCons = 0
-        for t in range(params.numberOfShifts):
+        for t in range(self.pdata.shifts):
             for i in range(params.numberOfScenariosPerShift):
                 scenario = self.scenarios[t][i]
                 for cluster in scenario.clusterList:
@@ -149,7 +150,7 @@ class Solver:
 
     def customerSatisfactionConstraints(self):
         numCons = 0
-        for t in range(params.numberOfShifts):
+        for t in range(self.pdata.shifts):
             for i in range(params.numberOfScenariosPerShift):
                 scenario = self.scenarios[t][i]
                 for cluster in scenario.clusterList:
@@ -187,7 +188,7 @@ class Solver:
 
     def createScenarios(self):
         print "Creating scenarios..."
-        for t in range(params.numberOfShifts):
+        for t in range(self.pdata.shifts):
             self.scenarios[t] = {}
             for i in range(params.numberOfScenariosPerShift):
                 self.scenarios[t][i] = Scenario(i,t,self.pdata)
@@ -211,7 +212,14 @@ class Solver:
 
         print "Total cost = " , solution.get_objective_value()
 
-        for t in range(params.numberOfShifts):
+        # get fleet dimension for each depot
+        for key, d in self.pdata.depots.iteritems():
+            nvar = self.getVariable(self.getName("n", d.id))
+            nval = sol[nvar.col]
+            print "Fleet size for depot ", str(d.id), ": ", nval
+
+        # get routes for each shift and scenario
+        for t in range(self.pdata.shifts):
             for i in range(params.numberOfScenariosPerShift):
                 scenario = self.scenarios[t][i]
                 routes = []
@@ -223,6 +231,7 @@ class Solver:
                         xval = sol[xvar.col]
 
                         if xval > 0:
+                            # print xvar.name + ":" + str(xval)
                             xvar.route.vehicleType = 1
                             routes.append(xvar.route)
                             continue
@@ -233,6 +242,7 @@ class Solver:
                         yval = sol[yvar.col]
 
                         if yval > 0:
+                            # print yvar.name + ":" + str(yval)
                             yvar.route.vehicleType = 2
                             routes.append(yvar.route)
                             continue
@@ -247,7 +257,6 @@ class Solver:
         fig.suptitle('Shift:' + str(scenario.shift) + " - Scenario:" + str(scenario.id) , fontsize=20)
         ax = fig.add_subplot(111)
 
-
         # plot customers and depots
         for key, c in scenario.customers.iteritems():
             marker = "ko"
@@ -257,11 +266,12 @@ class Solver:
 
         # plot routes
         for route in routes:
-            marker = "k-"
+            color = np.random.rand(3,1)
+            line = "-"
             if route.vehicleType == 2:
-                marker = "k--"
+                line = "--"
 
             for i in range(len(route.customers)-1):
                 c1 = route.customers[i]
                 c2 = route.customers[i+1]
-                ax.plot([c1.x, c2.x], [c1.y, c2.y], marker)
+                ax.plot([c1.x, c2.x], [c1.y, c2.y], c=color, linestyle=line)

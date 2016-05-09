@@ -5,6 +5,7 @@ class Customer:
         self.y = y
         self.zone = zone
         self.isDepot = isDepot
+        self.isDayCustomer = False
 
     def isDummy(self):
         return self.id < 0

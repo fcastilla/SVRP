@@ -2,19 +2,27 @@ import Tkinter
 import tkFileDialog
 import re
 import math
+import numpy as np
 
-from src.vrp.svrp.inputdata.Parameters import Parameters as params
 from src.vrp.data.Data import *
 
 
 class ProblemData:
     def __init__(self):
         self.n = 0
+        self.shifts = 0
+        self.depotOperationCost = 0
+        self.lvCost = 0
+        self.hvCost = 0
+        self.demandDistributionMean = 0
+        self.demandDistributionSD = 0
+        self.shiftSwitchProb = 0
+        self.demandDistribution = []
+        self.dayCustomers = {}
+        self.afternoonCustomers = {}
         self.customers = {}
         self.depots = {}
         self.distances = {}
-        self.lvCost = 0
-        self.hvCost = 0
         self.readInstance()
 
     def readInstance(self):
@@ -28,14 +36,26 @@ class ProblemData:
         for line in f:
             if "DIMENSION" in line:
                 self.n = int(re.search(r'\d+', line).group())
+            elif "SHIFTS" in line:
+                self.shifts = int(re.search(r'\d+', line).group())
+            elif "DEPOT_COST" in line:
+                self.depotOperationCost = float(re.search(r"[-+]?\d*\.\d+|\d+", line).group())
             elif "LV" in line:
-                self.lvCost = int(re.search(r'\d+', line).group())
+                self.lvCost = float(re.search(r"[-+]?\d*\.\d+|\d+", line).group())
             elif "HV" in line:
-                self.hvCost = int(re.search(r'\d+', line).group())
+                self.hvCost = float(re.search(r"[-+]?\d*\.\d+|\d+", line).group())
+            elif "DEMAND_MEAN" in line:
+                self.demandDistributionMean = float(re.search(r"[-+]?\d*\.\d+|\d+", line).group())
+            elif "DEMAND_SD" in line:
+                self.demandDistributionSD = float(re.search(r"[-+]?\d*\.\d+|\d+", line).group())
+            elif "SHIFT_SWITCH_PROB" in line:
+                self.shiftSwitchProb = float(re.search(r"[-+]?\d*\.\d+|\d+", line).group())
             elif "NODE_COORD_SECTION" in line:
                 section = 1
             elif "DEPOT_SECTION" in line:
                 section = 2
+            elif "DAYTIME_CUSTOMERS_SECTION" in line:
+                section = 3
             elif section == 1:
                 # Obtain customer information
                 info = [float(x) for x in line.split()]
@@ -48,9 +68,25 @@ class ProblemData:
                 c = self.customers[id]
                 c.isDepot = True
                 self.depots[id] = c
+            elif section == 3:
+                id = int(line)
+                c = self.customers[id]
+                c.isDayCustomer = True
+                self.dayCustomers[c.id] = c
 
         f.close()
+        self.setAfternoonCustomers()
+        self.makeDemandDistribution()
         self.computeDistances()
+
+    def setAfternoonCustomers(self):
+        for key, c in self.customers.iteritems():
+            if not c.isDayCustomer:
+                self.afternoonCustomers[c.id] = c
+
+    def makeDemandDistribution(self):
+        self.demandDistribution = list(np.random.normal(self.demandDistributionMean, self.demandDistributionSD, self.shifts))
+        print self.demandDistribution
 
     def computeDistances(self):
         for k1, c1 in self.customers.iteritems():
@@ -95,4 +131,3 @@ class ProblemData:
 
 # data = ProblemData()
 # data.readInstance()
-# data.computeDistances()
