@@ -5,6 +5,8 @@ class Constraint:
     c_demand = 4
     c_feasibility = 5
     c_optimality = 6
+    c_singlevar = 7
+    c_alpha = 8
     c_error = 10
 
     def __init__(self):

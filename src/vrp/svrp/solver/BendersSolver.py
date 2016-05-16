@@ -40,8 +40,12 @@ class BendersSolver:
         # set the objective sense of the master problem
         self.master.lp.objective.set_sense(self.master.lp.objective.sense.minimize)
         self.createNVariables(self.master)
+        self.createAlphaVariables(self.master)
+        self.createAlphaHVariables(self.master)
+        self.createSingleVarDepotConstraint(self.master)
         self.minimumFleetSizeConstraints(self.master)
         self.maximumFleetSizeConstraints(self.master)
+        self.createAlphaConstraints(self.master)
 
     def createSubproblems(self):
         self.subproblems = {}
@@ -73,11 +77,38 @@ class BendersSolver:
                 v.depot = d
                 v.digit = i
                 model.variables[v.name] = v
-                model.lp.variables.add(obj=[i * self.pdata.depotOperationCost], types=["I"], names=[v.name])
+                model.lp.variables.add(obj=[i * self.pdata.depotOperationCost], types=["B"], names=[v.name])
                 model.numCols += 1
 
-    def createAlphaVariables(self):
-        pass
+    def createAlphaVariables(self, model):
+        for t in range(self.pdata.shifts):
+            for i in range(params.numberOfScenariosPerShift):
+                scenario = self.scenarios[t][i]
+                for cluster in scenario.clusterList:
+                    depot =  cluster.depot
+                    v = Variable()
+                    v.type = Variable.v_alpha
+                    v.name = model.getName("alpha", t, i, depot.id)
+                    v.depot = depot
+                    v.shift = i
+                    v.scenario = scenario
+                    v.col = model.numCols
+                    model.variables[v.name] = v
+                    model.lp.variables.add(names=[v.name])
+                    model.numCols += 1
+
+    def createAlphaHVariables(self, model):
+        for t in range(self.pdata.shifts):
+            for k, depot in self.pdata.depots.iteritems():
+                v = Variable()
+                v.type = Variable.v_alphaH
+                v.name = model.getName("alphaH", t, depot.id)
+                v.shift = t
+                v.depot = depot
+                v.col = model.numCols
+                model.variables[v.name] = v
+                model.lp.variables.add(obj=[1.0], names=[v.name])
+                model.numCols += 1
 
     def createXYVariables(self, model, shift, scenario, cluster):
         for route in cluster.routes:
@@ -91,7 +122,7 @@ class BendersSolver:
             v.depot = cluster.depot
             v.route = route
 
-            coef = float((1 / params.numberOfScenariosPerShift)) * self.pdata.lvCost * route.distance
+            coef = self.pdata.lvCost * route.distance
             model.variables[v.name] = v
             model.lp.variables.add(obj=[coef], types=["B"], names=[v.name])
             model.numCols += 1
@@ -106,7 +137,7 @@ class BendersSolver:
             v.depot = cluster.depot
             v.route = route
 
-            coef = (1 / params.numberOfScenariosPerShift) * self.pdata.hvCost * route.distance
+            coef = self.pdata.hvCost * route.distance
             model.variables[v.name] = v
             model.lp.variables.add(obj=[coef], types=["B"], names=[v.name])
             model.numCols += 1
@@ -159,6 +190,36 @@ class BendersSolver:
         model.constraints[c.name] = c
         model.createConstraint(mind, mval, "L", rhs, c.name)
         model.numRows += 1
+
+    def createAlphaConstraints(self, model):
+        for t in range(self.pdata.shifts):
+            for k, depot in self.pdata.depots.iteritems():
+                c = Constraint()
+                c.type = Constraint.c_alpha
+                c.name = model.getName("c_alpha", t, depot.id)
+                c.depot = depot
+                c.shift = t
+                c.row = model.numRows
+
+                mind = []
+                mval = []
+                rhs = 0.0
+
+                # get the alphaH variable
+                alpha1 = model.getVariable(model.getName("alphaH", t, depot.id))
+                mind.append(alpha1.col)
+                mval.append(1.0)
+
+                # get the ohter alpha variables
+                for i in range(params.numberOfScenariosPerShift):
+                    alpha2 = model.getVariable(model.getName("alpha", t, i, depot.id))
+                    mind.append(alpha2.col)
+                    mval.append(-1/params.numberOfScenariosPerShift)
+
+                model.constraints[c.name] = c
+                model.createConstraint(mind, mval, "E", rhs, c.name)
+                model.numRows += 1
+
 
     def fleetSizeConstraints(self, model, shift, scenario, cluster, nval):
         c = Constraint()
@@ -214,7 +275,29 @@ class BendersSolver:
             model.createConstraint(mind, mval, "E", rhs, c.name)
             model.numRows += 1
 
-    def createFeasibilityCut(self, depot, rhs):
+    def createSingleVarDepotConstraint(self, model):
+        for key, depot in self.pdata.depots.iteritems():
+            c = Constraint()
+            c.type = Constraint.c_singlevar
+            c.name = model.getName("singleVar", depot.id)
+            c.depot = depot
+            c.row = model.numRows
+
+            mind = []
+            mval = []
+            rhs = 1.0
+
+            # get the "N" variables
+            for i in range(self.pdata.maximumFleetSize + 1):
+                nvar = model.getVariable(model.getName("n", depot.id, i))
+                mind.append(nvar.col)
+                mval.append(1.0)
+
+            model.constraints[c.name] = c
+            model.createConstraint(mind, mval, "E", rhs, c.name)
+            model.numRows += 1
+
+    def createFeasibilityCut(self, depot):
         c = Constraint()
         c.type = Constraint.c_feasibility
         c.name = self.master.getName("feasibility", self.f_cons)
@@ -222,19 +305,55 @@ class BendersSolver:
 
         mind = []
         mval = []
+        rhs = 0
 
         for i in range(self.pdata.maximumFleetSize + 1):
             nvar = self.master.getVariable(self.master.getName("n", depot.id, i))
-            mind.append(nvar.col)
-            mval.append(1.0)
+
+            # check if the variable is in the current master solution
+            if nvar.solutionVal != 0:
+                rhs += 1
+                mind.append(nvar.col)
+                mval.append(1.0)
 
         self.master.constraints[c.name] = c
-        self.master.createConstraint(mind, mval, "L", rhs, c.name)
+        self.master.createConstraint(mind, mval, "L", rhs - 1, c.name)
         self.master.numRows += 1
         self.f_cons += 1
 
-    def createOptimalityCut(self):
-        pass
+    def createOptimalityCut(self, shift, scenario, depot, cost):
+        c = Constraint()
+        c.type = Constraint.c_optimality
+        c.name = self.master.getName("optimality", self.o_cons)
+        c.shift = shift
+        c.depot = depot
+        c.scenario = scenario
+        c.row = self.master.numRows
+
+        mind = []
+        mval = []
+        contVars = 0
+
+        # get the alpha variable
+        alpha = self.master.getVariable(self.master.getName("alpha", shift, scenario.id, depot.id))
+        mind.append(alpha.col)
+        mval.append(1.0)
+
+        #get the "N" variables
+        for i in range(self.pdata.maximumFleetSize):
+            nvar = self.master.getVariable(self.master.getName("n", depot.id, i))
+
+            # check if the variable is part of the current master solution
+            if nvar.solutionVal != 0:
+                contVars += 1
+                mind.append(nvar.col)
+                mval.append(-cost)
+
+        contVars -= 1
+        self.master.constraints[c.name] = c
+        self.master.createConstraint(mind, mval, "G",cost*-contVars , c.name)
+        self.master.numRows += 1
+        self.o_cons += 1
 
     #endregion
 
@@ -257,20 +376,28 @@ class BendersSolver:
         zinf = -10000000000000
         zsup = 10000000000000
         infeasible = False
+        iter = 0
 
         # Benders algorithm
-        while zsup - zinf > params.eps or infeasible:
+        while infeasible or zsup - zinf > params.eps:
+            iter += 1
+            print "Iter:", iter, " | Zinf:", zinf\
+                , " | Zsup:", zsup, " | O:", self.o_cons, " | F:", self.f_cons
+
             infeasible = False
+            zsup = 0
 
             # write the master lp
             self.master.lp.write("..\\..\\..\\lps\\svrp_master.lp")
 
             # solve the (updated) master problem
+            print "Solving master problem... "
             self.master.lp.solve()
 
             # get the trial solution
             solution = self.master.lp.solution
             sol = solution.get_values()
+            zinf = solution.get_objective_value()
 
             nvals = {}
 
@@ -278,6 +405,7 @@ class BendersSolver:
                 for i in range(self.pdata.maximumFleetSize + 1):
                     nvar = self.master.getVariable(self.master.getName("n", d.id, i))
                     nvar.solutionVal = sol[nvar.col]
+                    zsup += (nvar.digit * nvar.solutionVal) * self.pdata.depotOperationCost
 
                     if d.id in nvals:
                         nvals[d.id] += (nvar.digit * nvar.solutionVal)
@@ -312,14 +440,20 @@ class BendersSolver:
                         status = sp_sol.get_status()
 
                         if status in [101,102]: # feasible
+                            # add the objective value
+                            sp_obj = sp_sol.get_objective_value()
+                            zsup += (1/params.numberOfScenariosPerShift) * sp_obj
+
                             # create optimality cut in the master problem
-                            # aggregate to the objective function
-                            pass
+                            self.createOptimalityCut(t, scenario, depot, sp_obj)
+
                         elif status in [103]: # infeasible
                             infeasible = True
 
                             # create an infeasiblity cut in the master problem
-                            self.createFeasibilityCut(depot, nval - 1)
+                            self.createFeasibilityCut(depot)
+
+        print "Final sol: ", zinf, " | ", zsup
 
     def plotShiftSolution(self, scenario, routes):
         # create new plot

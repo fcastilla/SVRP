@@ -4,6 +4,7 @@ class Variable:
     v_y = 2
     v_n = 3
     v_alpha = 4
+    v_alphaH = 5
     v_error = 10
 
     def __init__(self):
