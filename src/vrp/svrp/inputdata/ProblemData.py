@@ -12,6 +12,8 @@ class ProblemData:
         self.n = 0
         self.shifts = 0
         self.depotOperationCost = 0
+        self.minimumFleetSize = 0
+        self.maximumFleetSize = 0
         self.lvCost = 0
         self.hvCost = 0
         self.demandDistributionMean = 0
@@ -40,6 +42,10 @@ class ProblemData:
                 self.shifts = int(re.search(r'\d+', line).group())
             elif "DEPOT_COST" in line:
                 self.depotOperationCost = float(re.search(r"[-+]?\d*\.\d+|\d+", line).group())
+            elif "MINIMUM_FLEET_SIZE" in line:
+                self.minimumFleetSize = int(re.search(r'\d+', line).group())
+            elif "MAXIMUM_FLEET_SIZE" in line:
+                self.maximumFleetSize = int(re.search(r'\d+', line).group())
             elif "LV" in line:
                 self.lvCost = float(re.search(r"[-+]?\d*\.\d+|\d+", line).group())
             elif "HV" in line:

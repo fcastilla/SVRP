@@ -17,6 +17,8 @@ class SVRPInstanceMaker:
         self.distances = []
         self.shifts = 0
         self.depotOperationCost = 0
+        self.minimumFleetSize = 0
+        self.maximumFleetSize = 0
         self.lvCost = 0
         self.hvCost = 0
         self.demandMean = 0.0
@@ -107,6 +109,10 @@ class SVRPInstanceMaker:
         # Get the cost for depot operation per vehicle:
         self.depotOperationCost = input("What's the depot operational cost per vehicle?: ")
 
+        # Get the minimum and maximum fleet size per depot
+        self.minimumFleetSize = input("What's the minimum fleet size allowed?: ")
+        self.maximumFleetSize = input("What's the maximum fleet size allowed?: ")
+
         # Get the travel cost for leased and hired vehicles
         self.lvCost = input("What's the travel cost for leased vehicles (per distance unit)?: ")
         self.hvCost = input("What's the travel cost for short term hired vehicles (per distance unit)?: ")
@@ -152,6 +158,10 @@ class SVRPInstanceMaker:
 
         # Write depot operational cost per vehicle
         f.write("DEPOT_COST:" + str(self.depotOperationCost) + "\n")
+
+        # Write the minimum and maximum fleet size
+        f.write("MINIMUM_FLEET_SIZE:" + str(self.minimumFleetSize) + "\n")
+        f.write("MAXIMUM_FLEET_SIZE:" + str(self.maximumFleetSize) + "\n")
 
         # Write cost per leased and short hired vehicle
         f.write("LV_COST: " + str(self.lvCost) + "\n")

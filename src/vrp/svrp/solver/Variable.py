@@ -3,6 +3,7 @@ class Variable:
     v_x = 1
     v_y = 2
     v_n = 3
+    v_alpha = 4
     v_error = 10
 
     def __init__(self):
@@ -14,4 +15,5 @@ class Variable:
         self.shift = -1
         self.route = None
         self.customer = None
+        self.digit = 0
         self.type = Variable.v_error
