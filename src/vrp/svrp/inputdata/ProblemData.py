@@ -24,7 +24,9 @@ class ProblemData:
         self.afternoonCustomers = {}
         self.customers = {}
         self.depots = {}
+        self.depotCosts = {}
         self.distances = {}
+        self.vehicleTypes = []
         self.readInstance()
 
     def readInstance(self):
@@ -40,16 +42,6 @@ class ProblemData:
                 self.n = int(re.search(r'\d+', line).group())
             elif "SHIFTS" in line:
                 self.shifts = int(re.search(r'\d+', line).group())
-            elif "DEPOT_COST" in line:
-                self.depotOperationCost = float(re.search(r"[-+]?\d*\.\d+|\d+", line).group())
-            elif "MINIMUM_FLEET_SIZE" in line:
-                self.minimumFleetSize = int(re.search(r'\d+', line).group())
-            elif "MAXIMUM_FLEET_SIZE" in line:
-                self.maximumFleetSize = int(re.search(r'\d+', line).group())
-            elif "LV" in line:
-                self.lvCost = float(re.search(r"[-+]?\d*\.\d+|\d+", line).group())
-            elif "HV" in line:
-                self.hvCost = float(re.search(r"[-+]?\d*\.\d+|\d+", line).group())
             elif "DEMAND_MEAN" in line:
                 self.demandDistributionMean = float(re.search(r"[-+]?\d*\.\d+|\d+", line).group())
             elif "DEMAND_SD" in line:
@@ -58,10 +50,14 @@ class ProblemData:
                 self.shiftSwitchProb = float(re.search(r"[-+]?\d*\.\d+|\d+", line).group())
             elif "NODE_COORD_SECTION" in line:
                 section = 1
-            elif "DEPOT_SECTION" in line:
+            elif "VEHICLE_SECTION" in line:
                 section = 2
-            elif "DAYTIME_CUSTOMERS_SECTION" in line:
+            elif "DEPOT_SECTION" in line:
                 section = 3
+            elif "DEMAND_SECTION" in line:
+                section = 4
+            elif "DAYTIME_CUSTOMERS_SECTION" in line:
+                section = 5
             elif section == 1:
                 # Obtain customer information
                 info = [float(x) for x in line.split()]
@@ -70,11 +66,28 @@ class ProblemData:
                 c = Customer(int(info[0]), float(info[1]), float(info[2]), False)
                 self.customers[c.id] = c
             elif section == 2:
-                id = int(line)
-                c = self.customers[id]
-                c.isDepot = True
-                self.depots[id] = c
+                info = [int(x) for x in line.split()]
+                vt = Vehicle(info[0], info[1], info[2], info[3], info[4])
+                self.vehicleTypes.append(vt)
             elif section == 3:
+                info = [float(x) for x in line.split()]
+
+                id = int(info[0])
+                vt = int(info[1])
+                cost = float(info[2])
+
+                d = self.customers[id]
+                d.isDepot = True
+                self.depots[id] = d
+                if id not in self.depotCosts:
+                    self.depotCosts[id] = {}
+                self.depotCosts[id][vt] = cost
+            elif section == 4:
+                info = [int(x) for x in line.split()]
+
+                cid = info[0]
+                self.customers[cid].acceptedVehicleTypes = info[1:]
+            elif section == 5:
                 id = int(line)
                 c = self.customers[id]
                 c.isDayCustomer = True
@@ -135,5 +148,4 @@ class ProblemData:
                 pass
         return depot
 
-# data = ProblemData()
-# data.readInstance()
+data = ProblemData()

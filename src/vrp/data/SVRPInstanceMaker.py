@@ -9,6 +9,11 @@ import numpy as np
 from src.vrp.data.Data import *
 
 
+# ToDo Update Depot Section (depot, vehicle type, cost) (OK)
+# ToDo Create Vehicle Types Section (type, lvCost, hvCost, minFleet, maxFleet) (OK)
+# ToDo Create Demand Section with (customer_id, vehicle_types_list) (OK)
+# ToDo Clusterization analyzing demands based on vehicle types?
+
 class SVRPInstanceMaker:
     def __init__(self):
         self.n = 0
@@ -17,14 +22,13 @@ class SVRPInstanceMaker:
         self.distances = []
         self.shifts = 0
         self.depotOperationCost = 0
-        self.minimumFleetSize = 0
-        self.maximumFleetSize = 0
-        self.lvCost = 0
-        self.hvCost = 0
         self.demandMean = 0.0
         self.demandSD = 0.0
         self.shiftSwitchProb = 0.0
         self.clusters = 0
+        self.vTypes = 0
+        self.vehicleTypes = []
+        self.depotCosts = {}
 
     def readCVRPInstance(self, path):
         f = open(path)
@@ -95,6 +99,15 @@ class SVRPInstanceMaker:
                 if p <= prob:
                     c.isDayCustomer = True
 
+    def setCustomerVehicleTypes(self, prob):
+        for i in range(1, self.clusters + 1):
+            clusterCustomers = [c for c in self.customers if c.zone == i and c.isDepot == False]
+            for c in clusterCustomers:
+                c.acceptedVehicleTypes.append(0)
+                p = random.random()
+                if p > prob:
+                    c.acceptedVehicleTypes.append(1)
+
     def createNewInstance(self):
         # Open file dialog to select base vrp instance
         Tkinter.Tk().withdraw()
@@ -106,19 +119,21 @@ class SVRPInstanceMaker:
         # Get the number of shifts
         self.shifts = input("How many shifts for the instance?: ")
 
-        # Get the cost for depot operation per vehicle:
-        self.depotOperationCost = input("What's the depot operational cost per vehicle?: ")
-
-        # Get the minimum and maximum fleet size per depot
-        self.minimumFleetSize = input("What's the minimum fleet size allowed?: ")
-        self.maximumFleetSize = input("What's the maximum fleet size allowed?: ")
-
-        # Get the travel cost for leased and hired vehicles
-        self.lvCost = input("What's the travel cost for leased vehicles (per distance unit)?: ")
-        self.hvCost = input("What's the travel cost for short term hired vehicles (per distance unit)?: ")
-
         # Get how many depots should be created
         numDepots = input("How many depots should we create: ")
+
+        # Get how many vehicle types
+        self.vTypes = 2 # input("How many vehicle types?")
+
+        # For each vehicle type, get lvCost, hvCost, minFleet and maxFleet
+        for i in range(self.vTypes):
+            lvCost = input("Please input leased vehicle cost for vehicle type " + str(i) + ": ")
+            hvCost = input("Please input hired vehicle cost for vehicle type " + str(i) + ": ")
+            minFleet = input("Please input min fleet size for vehicle type " + str(i) + ": ")
+            maxFleet = input("Please input max fleet size for vehicle type " + str(i) + ": ")
+
+            vt = Vehicle(i,lvCost,hvCost,minFleet,maxFleet)
+            self.vehicleTypes.append(vt)
 
         # Create customer clusters
         self.createCustomerClusters(numDepots)
@@ -126,11 +141,24 @@ class SVRPInstanceMaker:
         # Randomly select a depot for each customer cluster
         self.setRandomDepots()
 
+        # Get cost of having a vehicle per depot per vehicle type
+        self.depots = [c for c in self.customers if c.isDepot == True]
+        for d in self.depots:
+            self.depotCosts[d.id] = {}
+            for vt in self.vehicleTypes:
+                self.depotCosts[d.id][vt.type] = input("Please provide the cost of having a vehicle of type " + str(vt.type) + " in depot " + str(d.id) + " :")
+
         # Get proportion of "day time" Customers
         dayProportion = input("Which proportion of customers should be day time? (0.0 to 1.0 are valid inputs): ")
 
         # Select day time customers
         self.selectDayTimeCustomers(dayProportion)
+
+        # Get proportion of "one type of vehicle" customers
+        vProportion = input("Which proportion of customers will accept only 1 type of vehicle? ")
+
+        # Set the vehicle type acceptance for each customer
+        self.setCustomerVehicleTypes(vProportion)
 
         # Get demand distribution mean
         self.demandMean = input("Enter the mean for the demand (normal) distribution function: ")
@@ -156,21 +184,10 @@ class SVRPInstanceMaker:
         # Write number of shifts
         f.write("SHIFTS: " + str(self.shifts) + "\n")
 
-        # Write depot operational cost per vehicle
-        f.write("DEPOT_COST:" + str(self.depotOperationCost) + "\n")
-
-        # Write the minimum and maximum fleet size
-        f.write("MINIMUM_FLEET_SIZE:" + str(self.minimumFleetSize) + "\n")
-        f.write("MAXIMUM_FLEET_SIZE:" + str(self.maximumFleetSize) + "\n")
-
-        # Write cost per leased and short hired vehicle
-        f.write("LV_COST: " + str(self.lvCost) + "\n")
-        f.write("HV_COST: " + str(self.hvCost) + "\n")
-
         # Write demand distribution parameters
         f.write("DEMAND_MEAN: " + str(self.demandMean) + "\n")
         f.write("DEMAND_SD: " + str(self.demandSD) + "\n")
-        f.write("SHIFT_SWITCH_PROB: " + str(self.shiftSwitchProb) + "\n");
+        f.write("SHIFT_SWITCH_PROB: " + str(self.shiftSwitchProb) + "\n")
 
         # Write customer information
         f.write("NODE_COORD_SECTION \n")
@@ -178,10 +195,25 @@ class SVRPInstanceMaker:
         for c in self.customers:
             f.write(str(c.id) + "\t" + str(c.x) + "\t" + str(c.y) + "\t" + str(c.zone) + "\n")
 
+        # Write vehicle types information
+        f.write("VEHICLE_SECTION \n")
+        self.vehicleTypes.sort(key=lambda v: v.type)
+        for vt in self.vehicleTypes:
+            f.write(str(vt.type) + "\t" + str(vt.lvCost) + "\t" + str(vt.hvCost) + "\t" + str(vt.minFleet) + "\t" + str(vt.maxFleet) + "\n")
+
         # Write depots
         f.write("DEPOT_SECTION\n")
-        for d in [c for c in self.customers if c.isDepot == True]:
-            f.write(str(d.id) + "\n")
+        for d in self.depots:
+            for vt in self.vehicleTypes:
+                f.write(str(d.id) + "\t" + str(vt.type) + "\t" + str(self.depotCosts[d.id][vt.type]) + "\n")
+
+        # Write Demand section
+        f.write("DEMAND_SECTION \n")
+        for c in self.customers:
+            s = str(c.id)
+            for vt in c.acceptedVehicleTypes:
+                s += "\t" + str(vt)
+            f.write(s + "\n")
 
         # Write day time customers information
         f.write("DAYTIME_CUSTOMERS_SECTION\n")
