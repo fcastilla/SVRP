@@ -9,12 +9,17 @@ class Cluster:
         self.depot = depot
         self.pdata = pdata
         self.customers = []
-        self.routes = []
+        self.routes = {}
+        self.numRoutes = 0
 
-    def createRoutes(self):
+    def createRoutes(self, vt):
         routes = []
+
+        # Select customers that accept the vehicle type vt
+        customers = [c for c in self.customers if vt in c.acceptedVehicleTypes]
+
         for i in range(1, params.maxCustomersPerRoute+1):
-            newroutes = list(itertools.combinations(self.customers, i))
+            newroutes = list(itertools.combinations(customers, i))
             routes.extend(newroutes)
 
         t = (self.depot, )
@@ -39,7 +44,12 @@ class Cluster:
                 minRoute = t + minRoute + t
                 minDistance = self.pdata.getRouteLength(minRoute)
 
-            route = Route(i, minRoute, minDistance)
-            self.routes.append(route)
+            route = Route(self.numRoutes, minRoute, minDistance)
+
+            if vt not in self.routes:
+                self.routes[vt] = []
+            self.routes[vt].append(route)
+
+            self.numRoutes += 1
 
 

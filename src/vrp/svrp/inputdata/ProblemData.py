@@ -148,4 +148,4 @@ class ProblemData:
                 pass
         return depot
 
-data = ProblemData()
+# data = ProblemData()

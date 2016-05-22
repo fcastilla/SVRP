@@ -66,7 +66,8 @@ class Scenario:
 
     def createClusterRoutes(self):
         for c in self.clusterList:
-            c.createRoutes()
+            for vt in self.pdata.vehicleTypes:
+                c.createRoutes(vt.type)
 
     def plotClusters(self):
         colors = ["y", "r", "c", "m", "b"]

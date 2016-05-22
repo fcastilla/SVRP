@@ -25,7 +25,9 @@ class BendersSolver:
 
     def initializeModel(self, model):
         model.variables = {}
+        model.constraints = {}
         model.numCols = 0
+        model.numRows = 0
         model.lp = cplex.Cplex()
         model.lp.set_log_stream(None)
         model.lp.set_error_stream(None)
@@ -68,17 +70,19 @@ class BendersSolver:
                     self.customerSatisfactionConstraints(sp, t, scenario, cluster)
 
     def createNVariables(self, model):
-        for k, d in self.pdata.depots.iteritems():
-            for i in range(self.pdata.maximumFleetSize + 1):
-                v = Variable()
-                v.type = Variable.v_n
-                v.name = model.getName("n", d.id, i)
-                v.col = model.numCols
-                v.depot = d
-                v.digit = i
-                model.variables[v.name] = v
-                model.lp.variables.add(obj=[i * self.pdata.depotOperationCost], types=["B"], names=[v.name])
-                model.numCols += 1
+        for vt in self.pdata.vehicleTypes:
+            for k, d in self.pdata.depots.iteritems():
+                for i in range(vt.maxFleet + 1):
+                    v = Variable()
+                    v.type = Variable.v_n
+                    v.name = model.getName("n", d.id, i, vt.type)
+                    v.col = model.numCols
+                    v.depot = d
+                    v.digit = i
+                    v.vehicleType = vt
+                    model.variables[v.name] = v
+                    model.lp.variables.add(obj=[i * self.pdata.depotCosts[d.id][vt.type]], types=["B"], names=[v.name])
+                    model.numCols += 1
 
     def createAlphaVariables(self, model):
         for t in range(self.pdata.shifts):
@@ -111,85 +115,95 @@ class BendersSolver:
                 model.numCols += 1
 
     def createXYVariables(self, model, shift, scenario, cluster):
-        for route in cluster.routes:
-            # Create x variable
-            v = Variable()
-            v.type = Variable.v_x
-            v.name = model.getName("x", shift, scenario.id, cluster.depot.id, route.id)
-            v.col = model.numCols
-            v.shift = shift
-            v.scenario = scenario
-            v.depot = cluster.depot
-            v.route = route
+        for vt in self.pdata.vehicleTypes:
+            if vt.type not in cluster.routes:
+                continue
 
-            coef = self.pdata.lvCost * route.distance
-            model.variables[v.name] = v
-            model.lp.variables.add(obj=[coef], types=["B"], names=[v.name])
-            model.numCols += 1
+            for route in cluster.routes[vt.type]:
+                # Create x variable
+                v = Variable()
+                v.type = Variable.v_x
+                v.name = model.getName("x", shift, scenario.id, cluster.depot.id, route.id, vt.type)
+                v.col = model.numCols
+                v.shift = shift
+                v.scenario = scenario
+                v.depot = cluster.depot
+                v.route = route
+                v.vehicleType = vt
 
-            # Create y variable
-            v = Variable()
-            v.type = Variable.v_y
-            v.name = model.getName("y", shift, scenario.id, cluster.depot.id, route.id)
-            v.col = model.numCols
-            v.shift = shift
-            v.scenario = scenario
-            v.depot = cluster.depot
-            v.route = route
+                coef = vt.lvCost * route.distance
+                model.variables[v.name] = v
+                model.lp.variables.add(obj=[coef], types=["B"], names=[v.name])
+                model.numCols += 1
 
-            coef = self.pdata.hvCost * route.distance
-            model.variables[v.name] = v
-            model.lp.variables.add(obj=[coef], types=["B"], names=[v.name])
-            model.numCols += 1
+                # Create y variable
+                v = Variable()
+                v.type = Variable.v_y
+                v.name = model.getName("y", shift, scenario.id, cluster.depot.id, route.id, vt.type)
+                v.col = model.numCols
+                v.shift = shift
+                v.scenario = scenario
+                v.depot = cluster.depot
+                v.route = route
+                v.vehicleType = vt
+
+                coef = vt.hvCost * route.distance
+                model.variables[v.name] = v
+                model.lp.variables.add(obj=[coef], types=["B"], names=[v.name])
+                model.numCols += 1
 
     #endregion
 
     #region Constraint Creation
     def minimumFleetSizeConstraints(self, model):
-        rhs = self.pdata.minimumFleetSize
+        for vt in self.pdata.vehicleTypes:
+            rhs = vt.minFleet
 
-        # If minimum fleet size is 0, ignore this constraint
-        if rhs <= 0:
-            return 0
+            # If minimum fleet size is 0, ignore this constraint
+            if rhs <= 0:
+                return 0
 
-        c = Constraint()
-        c.type = Constraint.c_minFleet
-        c.name = model.getName("minFleet")
-        c.row = model.numRows
+            c = Constraint()
+            c.type = Constraint.c_minFleet
+            c.name = model.getName("minFleet", vt.type)
+            c.vehicleType = vt
+            c.row = model.numRows
 
-        mind = []
-        mval = []
+            mind = []
+            mval = []
 
-        for key, d in self.pdata.depots.iteritems():
-            for i in range(self.pdata.maximumFleetSize + 1):
-                nvar = model.getVariable(model.getName("n", d.id, i))
-                mind.append(nvar.col)
-                mval.append(nvar.digit)
+            for key, d in self.pdata.depots.iteritems():
+                for i in range(vt.maxFleet + 1):
+                    nvar = model.getVariable(model.getName("n", d.id, i, vt.type))
+                    mind.append(nvar.col)
+                    mval.append(nvar.digit)
 
-        model.constraints[c.name] = c
-        model.createConstraint(mind, mval, "G", rhs, c.name)
-        model.numRows += 1
+            model.constraints[c.name] = c
+            model.createConstraint(mind, mval, "G", rhs, c.name)
+            model.numRows += 1
 
     def maximumFleetSizeConstraints(self, model):
-        rhs = self.pdata.maximumFleetSize
+        for vt in self.pdata.vehicleTypes:
+            rhs = vt.maxFleet
 
-        c = Constraint()
-        c.type = Constraint.c_maxFleet
-        c.name = model.getName("maxFleet")
-        c.row = model.numRows
+            c = Constraint()
+            c.type = Constraint.c_maxFleet
+            c.name = model.getName("maxFleet", vt.type)
+            c.vehicleType = vt
+            c.row = model.numRows
 
-        mind = []
-        mval = []
+            mind = []
+            mval = []
 
-        for key, d in self.pdata.depots.iteritems():
-            for i in range(self.pdata.maximumFleetSize + 1):
-                nvar = model.getVariable(model.getName("n", d.id, i))
-                mind.append(nvar.col)
-                mval.append(nvar.digit)
+            for key, d in self.pdata.depots.iteritems():
+                for i in range(vt.maxFleet + 1):
+                    nvar = model.getVariable(model.getName("n", d.id, i, vt.type))
+                    mind.append(nvar.col)
+                    mval.append(nvar.digit)
 
-        model.constraints[c.name] = c
-        model.createConstraint(mind, mval, "L", rhs, c.name)
-        model.numRows += 1
+            model.constraints[c.name] = c
+            model.createConstraint(mind, mval, "L", rhs, c.name)
+            model.numRows += 1
 
     def createAlphaConstraints(self, model):
         for t in range(self.pdata.shifts):
@@ -222,28 +236,32 @@ class BendersSolver:
 
 
     def fleetSizeConstraints(self, model, shift, scenario, cluster, nval):
-        c = Constraint()
-        c.type = Constraint.c_fleetSize
-        c.name = model.getName("fleetSize", shift, scenario.id, cluster.depot.id)
-        c.shift = shift
-        c.scenario = scenario
-        c.depot = cluster.depot.id
-        c.row = model.numRows
+        for vt in self.pdata.vehicleTypes:
+            if vt.type not in cluster.routes:
+                continue
+            c = Constraint()
+            c.type = Constraint.c_fleetSize
+            c.name = model.getName("fleetSize", shift, scenario.id, cluster.depot.id, vt.type)
+            c.shift = shift
+            c.scenario = scenario
+            c.depot = cluster.depot.id
+            c.vehicleType = vt
+            c.row = model.numRows
 
-        mind = []
-        mval = []
-        rhs = nval
+            mind = []
+            mval = []
+            rhs = nval
 
-        for route in cluster.routes:
-            # get the x variable and add it to the constraint
-            xname = model.getName("x", shift, scenario.id, cluster.depot.id, route.id)
-            xvar = model.getVariable(xname)
-            mind.append(xvar.col)
-            mval.append(1.0)
+            for route in cluster.routes[vt.type]:
+                # get the x variable and add it to the constraint
+                xname = model.getName("x", shift, scenario.id, cluster.depot.id, route.id, vt.type)
+                xvar = model.getVariable(xname)
+                mind.append(xvar.col)
+                mval.append(1.0)
 
-        model.constraints[c.name] = c
-        model.createConstraint(mind, mval, "L", rhs, c.name)
-        model.numRows += 1
+            model.constraints[c.name] = c
+            model.createConstraint(mind, mval, "L", rhs, c.name)
+            model.numRows += 1
 
     def customerSatisfactionConstraints(self, model, shift, scenario, cluster):
         for customer in cluster.customers:
@@ -256,46 +274,52 @@ class BendersSolver:
             mval = []
             rhs = 1.0
 
-            for route in cluster.routes:
-                # check if customer c belongs in this route
-                if customer in route.customers:
-                    # add the x variable
-                    xname = model.getName("x", shift, scenario.id, cluster.depot.id, route.id)
-                    xvar = model.getVariable(xname)
-                    mind.append(xvar.col)
-                    mval.append(1.0)
+            for vt in self.pdata.vehicleTypes:
+                if vt.type not in cluster.routes:
+                    continue
 
-                    # add the y variable
-                    yname = model.getName("y", shift, scenario.id, cluster.depot.id, route.id)
-                    yvar = model.getVariable(yname)
-                    mind.append(yvar.col)
-                    mval.append(1.0)
+                for route in cluster.routes[vt.type]:
+                    # check if customer c belongs in this route
+                    if customer in route.customers:
+                        # add the x variable
+                        xname = model.getName("x", shift, scenario.id, cluster.depot.id, route.id, vt.type)
+                        xvar = model.getVariable(xname)
+                        mind.append(xvar.col)
+                        mval.append(1.0)
+
+                        # add the y variable
+                        yname = model.getName("y", shift, scenario.id, cluster.depot.id, route.id, vt.type)
+                        yvar = model.getVariable(yname)
+                        mind.append(yvar.col)
+                        mval.append(1.0)
 
             model.constraints[c.name] = c
             model.createConstraint(mind, mval, "E", rhs, c.name)
             model.numRows += 1
 
     def createSingleVarDepotConstraint(self, model):
-        for key, depot in self.pdata.depots.iteritems():
-            c = Constraint()
-            c.type = Constraint.c_singlevar
-            c.name = model.getName("singleVar", depot.id)
-            c.depot = depot
-            c.row = model.numRows
+        for vt in self.pdata.vehicleTypes:
+            for key, depot in self.pdata.depots.iteritems():
+                c = Constraint()
+                c.type = Constraint.c_singlevar
+                c.name = model.getName("singleVar", depot.id, vt.type)
+                c.depot = depot
+                c.vehicleType = vt
+                c.row = model.numRows
 
-            mind = []
-            mval = []
-            rhs = 1.0
+                mind = []
+                mval = []
+                rhs = 1.0
 
-            # get the "N" variables
-            for i in range(self.pdata.maximumFleetSize + 1):
-                nvar = model.getVariable(model.getName("n", depot.id, i))
-                mind.append(nvar.col)
-                mval.append(1.0)
+                # get the "N" variables
+                for i in range(vt.maxFleet + 1):
+                    nvar = model.getVariable(model.getName("n", depot.id, i, vt.type))
+                    mind.append(nvar.col)
+                    mval.append(1.0)
 
-            model.constraints[c.name] = c
-            model.createConstraint(mind, mval, "E", rhs, c.name)
-            model.numRows += 1
+                model.constraints[c.name] = c
+                model.createConstraint(mind, mval, "E", rhs, c.name)
+                model.numRows += 1
 
     def createFeasibilityCut(self, depot):
         c = Constraint()
@@ -307,14 +331,15 @@ class BendersSolver:
         mval = []
         rhs = 0
 
-        for i in range(self.pdata.maximumFleetSize + 1):
-            nvar = self.master.getVariable(self.master.getName("n", depot.id, i))
+        for vt in self.pdata.vehicleTypes:
+            for i in range(vt.maxFleet + 1):
+                nvar = self.master.getVariable(self.master.getName("n", depot.id, i, vt.type))
 
-            # check if the variable is in the current master solution
-            if nvar.solutionVal != 0:
-                rhs += 1
-                mind.append(nvar.col)
-                mval.append(1.0)
+                # check if the variable is in the current master solution
+                if nvar.solutionVal != 0:
+                    rhs += 1
+                    mind.append(nvar.col)
+                    mval.append(1.0)
 
         self.master.constraints[c.name] = c
         self.master.createConstraint(mind, mval, "L", rhs - 1, c.name)
@@ -340,14 +365,15 @@ class BendersSolver:
         mval.append(1.0)
 
         #get the "N" variables
-        for i in range(self.pdata.maximumFleetSize):
-            nvar = self.master.getVariable(self.master.getName("n", depot.id, i))
+        for vt in self.pdata.vehicleTypes:
+            for i in range(vt.maxFleet + 1):
+                nvar = self.master.getVariable(self.master.getName("n", depot.id, i, vt.type))
 
-            # check if the variable is part of the current master solution
-            if nvar.solutionVal != 0:
-                contVars += 1
-                mind.append(nvar.col)
-                mval.append(-cost)
+                # check if the variable is part of the current master solution
+                if nvar.solutionVal != 0:
+                    contVars += 1
+                    mind.append(nvar.col)
+                    mval.append(-cost)
 
         contVars -= 1
         self.master.constraints[c.name] = c
@@ -402,16 +428,16 @@ class BendersSolver:
             nvals = {}
 
             for key, d in self.pdata.depots.iteritems():
-                for i in range(self.pdata.maximumFleetSize + 1):
-                    nvar = self.master.getVariable(self.master.getName("n", d.id, i))
-                    nvar.solutionVal = sol[nvar.col]
-                    zsup += (nvar.digit * nvar.solutionVal) * self.pdata.depotOperationCost
+                nvals[d.id] = {}
+                for vt in self.pdata.vehicleTypes:
+                    nvals[d.id][vt.type] = 0
 
-                    if d.id in nvals:
-                        nvals[d.id] += (nvar.digit * nvar.solutionVal)
-                    else:
-                        nvals[d.id] = (nvar.digit * nvar.solutionVal)
+                    for i in range(vt.maxFleet + 1):
+                        nvar = self.master.getVariable(self.master.getName("n", d.id, i, vt.type))
+                        nvar.solutionVal = sol[nvar.col]
+                        zsup += (nvar.digit * nvar.solutionVal) * self.pdata.depotCosts[d.id][vt.type]
 
+                        nvals[d.id][vt.type] += (nvar.digit * nvar.solutionVal)
 
             # Run each subproblem with the updated n values of the trial solution
             # and add the proper feasibility and optimality cuts
@@ -424,10 +450,11 @@ class BendersSolver:
                         # Get the subproblem
                         sp = self.subproblems[t][i][depot.id]
 
-                        # change the rhs of the fleet size constraint with the value obtained from the master
-                        nval = nvals[depot.id]
-                        c = sp.getConstraint(sp.getName("fleetSize", t, i, depot.id))
-                        sp.changeRHS(c.row, nval)
+                        for vt in self.pdata.vehicleTypes:
+                            # change the rhs of the fleet size constraint with the value obtained from the master
+                            nval = nvals[depot.id][vt.type]
+                            c = sp.getConstraint(sp.getName("fleetSize", t, i, depot.id, vt.type))
+                            sp.changeRHS(c.row, nval)
 
                         # write the subproblem lp file
                         sp.lp.write("..\\..\\..\\lps\\svrp_subproblem.lp")

@@ -17,4 +17,5 @@ class Variable:
         self.route = None
         self.customer = None
         self.digit = 0
+        self.vehicleType = None
         self.type = Variable.v_error

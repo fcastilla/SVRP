@@ -15,4 +15,5 @@ class Constraint:
         self.depot = None
         self.scenario = None
         self.shift = -1
+        self.vehicleType = None
         self.type = Constraint.c_error
