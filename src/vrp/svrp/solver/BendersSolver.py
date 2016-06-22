@@ -1,5 +1,6 @@
 from __future__ import division
 
+import time
 import cplex
 import numpy as np
 import matplotlib.pyplot as plt
@@ -12,16 +13,23 @@ from src.vrp.svrp.solver.Constraint import Constraint
 from src.vrp.svrp.solver.Model import Model
 
 class BendersSolver:
-    def __init__(self, pdata):
-        assert isinstance(pdata, ProblemData)
-
-        self.pdata = pdata
-        self.scenarios = {}
+    def __init__(self):
+        self.pdata = ProblemData()
         self.master = Model()
         self.subproblems = {}
 
         self.f_cons = 0
         self.o_cons = 0
+
+        self.fname = "output/" + self.pdata.instanceName + "_regularBenders.log"
+
+        f = open(self.fname + ".csv", "w")
+        header = "Iterations; Zinf; Zsup; MinZsup; O_Cuts; F_Cuts; Time (s)\n"
+        f.write(header)
+        f.close()
+
+        f = open(self.fname, "w")
+        f.close()
 
     def initializeModel(self, model):
         model.variables = {}
@@ -37,7 +45,6 @@ class BendersSolver:
     def createMaster(self):
         # initialize new lp for master problem
         self.master = Model()
-        self.initializeModel(self.master)
 
         # set the objective sense of the master problem
         self.master.lp.objective.set_sense(self.master.lp.objective.sense.minimize)
@@ -48,6 +55,7 @@ class BendersSolver:
         self.minimumFleetSizeConstraints(self.master)
         self.maximumFleetSizeConstraints(self.master)
         self.createAlphaConstraints(self.master)
+        # self.master.lp.write("lps\\svrp_master.lp")
 
     def createSubproblems(self):
         self.subproblems = {}
@@ -57,17 +65,17 @@ class BendersSolver:
             self.subproblems[t] = {}
             for i in range(params.numberOfScenariosPerShift):
                 self.subproblems[t][i] = {}
-                scenario = self.scenarios[t][i]
+                scenario = self.pdata.scenarios[t][i]
                 for cluster in scenario.clusterList:
                     d = cluster.depot
                     sp = self.subproblems[t][i][d.id] = Model()
-                    self.initializeModel(sp)
 
                     # set the objective of the subproblem
                     sp.lp.objective.set_sense(sp.lp.objective.sense.minimize)
                     self.createXYVariables(sp, t, scenario, cluster)
                     self.fleetSizeConstraints(sp, t, scenario, cluster, 0)
                     self.customerSatisfactionConstraints(sp, t, scenario, cluster)
+                    # sp.lp.write("lps\\svrp_subproblem_" + str(t) + "_" + str(i) + "_" + str(d.id) + ".lp")
 
     def createNVariables(self, model):
         for vt in self.pdata.vehicleTypes:
@@ -87,7 +95,7 @@ class BendersSolver:
     def createAlphaVariables(self, model):
         for t in range(self.pdata.shifts):
             for i in range(params.numberOfScenariosPerShift):
-                scenario = self.scenarios[t][i]
+                scenario = self.pdata.scenarios[t][i]
                 for cluster in scenario.clusterList:
                     depot =  cluster.depot
                     v = Variable()
@@ -383,17 +391,7 @@ class BendersSolver:
 
     #endregion
 
-    def createScenarios(self):
-        print "Creating scenarios..."
-        for t in range(self.pdata.shifts):
-            self.scenarios[t] = {}
-            for i in range(params.numberOfScenariosPerShift):
-                self.scenarios[t][i] = Scenario(i,t,self.pdata)
-
     def solve(self):
-        # create scenarios
-        self.createScenarios()
-
         # create subproblems
         self.createSubproblems()
 
@@ -401,23 +399,23 @@ class BendersSolver:
         self.createMaster()
         zinf = -10000000000000
         zsup = 10000000000000
+        minZsup = 10000000000000
         infeasible = False
         iter = 0
+        initTime = time.time()
 
         # Benders algorithm
         while infeasible or zsup - zinf > params.eps:
             iter += 1
-            print "Iter:", iter, " | Zinf:", zinf\
-                , " | Zsup:", zsup, " | O:", self.o_cons, " | F:", self.f_cons
 
             infeasible = False
             zsup = 0
 
             # write the master lp
-            self.master.lp.write("..\\..\\..\\lps\\svrp_master.lp")
+            # self.master.lp.write("lps\\svrp_master.lp")
 
             # solve the (updated) master problem
-            print "Solving master problem... "
+            # print "Solving master problem... "
             self.master.lp.solve()
 
             # get the trial solution
@@ -443,7 +441,7 @@ class BendersSolver:
             # and add the proper feasibility and optimality cuts
             for t in range(self.pdata.shifts):
                 for i in range(params.numberOfScenariosPerShift):
-                    scenario = self.scenarios[t][i]
+                    scenario = self.pdata.scenarios[t][i]
                     for cluster in scenario.clusterList:
                         depot = cluster.depot
 
@@ -454,10 +452,11 @@ class BendersSolver:
                             # change the rhs of the fleet size constraint with the value obtained from the master
                             nval = nvals[depot.id][vt.type]
                             c = sp.getConstraint(sp.getName("fleetSize", t, i, depot.id, vt.type))
-                            sp.changeRHS(c.row, nval)
+                            if not c is None: # there might be no demands for a depot in a given cenario.
+                                sp.changeRHS(c.row, nval)
 
                         # write the subproblem lp file
-                        sp.lp.write("..\\..\\..\\lps\\svrp_subproblem.lp")
+                        # sp.lp.write("lps\\svrp_subproblem.lp")
 
                         # solve the subproblem
                         sp.lp.solve()
@@ -479,6 +478,40 @@ class BendersSolver:
 
                             # create an infeasiblity cut in the master problem
                             self.createFeasibilityCut(depot)
+                        else:
+                            pass
+                            # print "shift: ", str(t), " | scenario: ", str(i), " | depot: ", str(depot.id)
+
+            minZsup = min(minZsup, zsup)
+            currentTime = time.time()
+            elapsed = currentTime - initTime
+
+            s_iter = str(iter)
+            s_zinf = "{:.2f}".format(zinf).replace(".",",")
+            s_zsup = "{:.2f}".format(zsup).replace(".",",")
+            s_incumbent = "{:.2f}".format(minZsup).replace(".",",")
+            s_ocons = str(self.o_cons)
+            s_fcons = str(self.f_cons)
+            s_elapsed = "{:.2f}".format(elapsed).replace(".",",")
+
+            line = s_iter + ";" + s_zinf + ";" + \
+                   s_zsup + ";" + s_incumbent + \
+                   ";" + s_ocons + ";" + s_fcons + ";" + s_elapsed
+
+            s_formatted = "Iter: %s | Zinf: %s | Zsup: %s | minZsup: %s | O_Cuts: %s | FCuts: %s | Time: %s (s)" \
+                  % (s_iter, s_zinf, s_zsup, s_incumbent, s_ocons, s_fcons, s_elapsed)
+
+            # print to screen
+            print s_formatted
+
+            # Update log files
+            f = open(self.fname, "a")
+            f.write(s_formatted + "\n")
+            f.close()
+
+            f = open(self.fname + ".csv", "a")
+            f.write(line + "\n")
+            f.close()
 
         print "Final sol: ", zinf, " | ", zsup
 

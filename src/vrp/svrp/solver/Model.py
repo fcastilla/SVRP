@@ -1,12 +1,26 @@
 import cplex
 
 class Model:
-    def __init__(self):
+    def __init__(self, doLog=False):
         self.lp = None
         self.numCols = 0
         self.numRows = 0
         self.variables = {}
         self.constraints = {}
+        self.doLog = doLog
+        self.reset()
+
+    def reset(self):
+        self.variables = {}
+        self.constraints = {}
+        self.numCols = 0
+        self.numRows = 0
+        self.lp = cplex.Cplex()
+        if not self.doLog:
+            self.lp.set_log_stream(None)
+            self.lp.set_error_stream(None)
+            self.lp.set_warning_stream(None)
+            self.lp.set_results_stream(None)
 
     def getVariable(self, vname):
         if vname in self.variables:

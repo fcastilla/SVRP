@@ -1,3 +1,5 @@
+from __future__ import division
+
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -19,7 +21,8 @@ class Scenario:
 
     def selectRandomCustomers(self):
         # Get the demand ratio for the associated shift
-        dprob = self.pdata.demandDistribution[self.shift]
+        day = int(math.floor((self.shift + 1) / 2))
+        dprob = self.pdata.demandDistribution[day]
 
         # We're assuming odd shifts as day shifts
         isDayShift = (self.shift % 2 != 0)

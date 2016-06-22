@@ -1,4 +1,7 @@
 *.sol
-lps/*.lp
+lps/**
 *.xml
 *.pyc
+results/**
+graphics/**
+output/**

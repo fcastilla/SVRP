@@ -1,0 +1,12 @@
+python Main.py Instances/PC-n78-d2-vt2-t10-s10.svrp
+python Main.py Instances/PC-n78-d2-vt2-t10-s20.svrp
+python Main.py Instances/PC-n78-d2-vt2-t10-s50.svrp
+python Main.py Instances/PC-n78-d2-vt2-t30-s10.svrp
+python Main.py Instances/PC-n78-d2-vt2-t30-s20.svrp
+python Main.py Instances/PC-n78-d2-vt2-t30-s50.svrp
+python Main.py Instances/PC-n78-d2-vt2-t40-s10.svrp
+python Main.py Instances/PC-n78-d2-vt2-t40-s20.svrp
+python Main.py Instances/PC-n78-d2-vt2-t40-s50.svrp
+python Main.py Instances/PC-n78-d2-vt2-t50-s10.svrp
+python Main.py Instances/PC-n78-d2-vt2-t50-s20.svrp
+python Main.py Instances/PC-n78-d2-vt2-t50-s50.svrp

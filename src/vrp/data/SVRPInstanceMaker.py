@@ -1,6 +1,8 @@
 import Tkinter
 import tkFileDialog
 import re
+import os
+
 from collections import deque
 import matplotlib.pyplot as plt
 import random
@@ -9,18 +11,16 @@ import numpy as np
 from src.vrp.data.Data import *
 
 
-# ToDo Update Depot Section (depot, vehicle type, cost) (OK)
-# ToDo Create Vehicle Types Section (type, lvCost, hvCost, minFleet, maxFleet) (OK)
-# ToDo Create Demand Section with (customer_id, vehicle_types_list) (OK)
-# ToDo Clusterization analyzing demands based on vehicle types?
-
 class SVRPInstanceMaker:
     def __init__(self):
+        np.random.seed(1)
+        self.instanceName = ""
         self.n = 0
         self.customers = []
         self.depots = []
         self.distances = []
         self.shifts = 0
+        self.scenarios = 0
         self.depotOperationCost = 0
         self.demandMean = 0.0
         self.demandSD = 0.0
@@ -30,7 +30,12 @@ class SVRPInstanceMaker:
         self.vehicleTypes = []
         self.depotCosts = {}
 
-    def readCVRPInstance(self, path):
+    def readCVRPInstance(self):
+        # Open file dialog to select base vrp instance
+        Tkinter.Tk().withdraw()
+        path = tkFileDialog.askopenfilename(filetypes=[("VRP Instances", ".vrp")])
+
+        # Read the selected instance file
         f = open(path)
         section = 0
 
@@ -50,7 +55,33 @@ class SVRPInstanceMaker:
                 self.customers.append(c)
 
         f.close()
-        print self.customers
+
+        # Create customer clusters
+        self.createCustomerClusters(2)
+
+        # Get proportion of "day time" Customers
+        dayProportion = 0.6  # input("Which proportion of customers should be day time? (0.0 to 1.0 are valid inputs): ")
+
+        # Select day time customers
+        self.selectDayTimeCustomers(dayProportion)
+
+        # set manual depots
+        l = [52,58]
+        for c in self.customers:
+            if c.id in l:
+                c.isDepot = True
+                self.depots.append(c)
+            else:
+                c.isDepot = False
+
+        # Get demand distribution mean
+        self.demandMean = 0.25  # input("Enter the mean for the demand (normal) distribution function: ")
+
+        # Get demand distribution standard deviation
+        self.demandSD = 0.1  # input("Enter the standard deviation for the demand distribution function: ")
+
+        # Get shift switch probability
+        self.shiftSwitchProb = 0.1  # input("What's the probability of a customer changing demand to a different shift?: ")
 
     def createCustomerClusters(self, num):
         groups = deque([self.customers])
@@ -99,90 +130,76 @@ class SVRPInstanceMaker:
                 if p <= prob:
                     c.isDayCustomer = True
 
-    def setCustomerVehicleTypes(self, prob):
+    def setCustomerVehicleTypes(self, p1, p2):
         for i in range(1, self.clusters + 1):
             clusterCustomers = [c for c in self.customers if c.zone == i and c.isDepot == False]
             for c in clusterCustomers:
+                c.acceptedVehicleTypes = []
                 c.acceptedVehicleTypes.append(0)
                 p = random.random()
-                if p > prob:
+                if p > p1:
                     c.acceptedVehicleTypes.append(1)
+                if p > p2:
+                    c.acceptedVehicleTypes.append(2)
 
-    def createNewInstance(self):
-        # Open file dialog to select base vrp instance
-        Tkinter.Tk().withdraw()
-        path = tkFileDialog.askopenfilename(filetypes=[("VRP Instances", ".vrp")])
-
-        # Read the selected instance file
-        self.readCVRPInstance(path)
-
-        # Get the number of shifts
-        self.shifts = input("How many shifts for the instance?: ")
-
-        # Get how many depots should be created
-        numDepots = input("How many depots should we create: ")
+    def createNewInstance(self, vehicleTypes):
+        self.vehicleTypes = []
+        self.depotCosts = {}
 
         # Get how many vehicle types
-        self.vTypes = 2 # input("How many vehicle types?")
+        self.vTypes = vehicleTypes # input("How many vehicle types?")
 
         # For each vehicle type, get lvCost, hvCost, minFleet and maxFleet
         for i in range(self.vTypes):
-            lvCost = input("Please input leased vehicle cost for vehicle type " + str(i) + ": ")
-            hvCost = input("Please input hired vehicle cost for vehicle type " + str(i) + ": ")
-            minFleet = input("Please input min fleet size for vehicle type " + str(i) + ": ")
-            maxFleet = input("Please input max fleet size for vehicle type " + str(i) + ": ")
+            lvCost = 200 if i == 0 else 150 if i == 1 else 100 # input("Please input leased vehicle cost for vehicle type " + str(i) + ": ")
+            hvCost = 250 if i == 0 else 190 if i == 1 else 130  # input("Please input hired vehicle cost for vehicle type " + str(i) + ": ")
+            minFleet = 2  # input("Please input min fleet size for vehicle type " + str(i) + ": ")
+            maxFleet = 8  # input("Please input max fleet size for vehicle type " + str(i) + ": ")
 
             vt = Vehicle(i,lvCost,hvCost,minFleet,maxFleet)
             self.vehicleTypes.append(vt)
 
-        # Create customer clusters
-        self.createCustomerClusters(numDepots)
-
-        # Randomly select a depot for each customer cluster
-        self.setRandomDepots()
-
         # Get cost of having a vehicle per depot per vehicle type
-        self.depots = [c for c in self.customers if c.isDepot == True]
         for d in self.depots:
             self.depotCosts[d.id] = {}
             for vt in self.vehicleTypes:
-                self.depotCosts[d.id][vt.type] = input("Please provide the cost of having a vehicle of type " + str(vt.type) + " in depot " + str(d.id) + " :")
-
-        # Get proportion of "day time" Customers
-        dayProportion = input("Which proportion of customers should be day time? (0.0 to 1.0 are valid inputs): ")
-
-        # Select day time customers
-        self.selectDayTimeCustomers(dayProportion)
+                self.depotCosts[d.id][vt.type] = 30 if vt.type == 0 else 20 if vt.type == 1 else 15 # input("Please provide the cost of having a vehicle of type " + str(vt.type) + " in depot " + str(d.id) + " :")
 
         # Get proportion of "one type of vehicle" customers
-        vProportion = input("Which proportion of customers will accept only 1 type of vehicle? ")
+        #vProportion = input("Which proportion of customers will accept only 1 type of vehicle? ")
 
         # Set the vehicle type acceptance for each customer
-        self.setCustomerVehicleTypes(vProportion)
+        p1 = 0.3 if self.vTypes >= 2 else 100
+        p2 = 0.6 if self.vTypes >= 3 else 100
+        self.setCustomerVehicleTypes(p1,p2)
 
-        # Get demand distribution mean
-        self.demandMean = input("Enter the mean for the demand (normal) distribution function: ")
+        # Write instance files
+        shift_options = [10,30,40,50]
+        scenario_options = [10,20,50]
 
-        # Get demand distribution standard deviation
-        self.demandSD = input("Enter the standard deviation for the demand distribution function: ")
+        for t in shift_options:
+            for s in scenario_options:
+                self.instanceName = "PS-n" + str(len(self.customers)) + "-d" + str(len(self.depots))
+                self.writeInstance(t, s)
 
-        # Get shift switch probability
-        self.shiftSwitchProb = input("What's the probability of a customer changing demand to a different shift?: ")
-
-        # Write the instance to file
-        self.writeInstance()
-
-        # Plot instance
+        # Plot Instance
         self.plotInstance()
 
-    def writeInstance(self):
-        f = open("../../../Instances/new_instance.svrp", "w")
+    def writeInstance(self, shifts, scenarios):
+        name = self.instanceName + "-vt" + str(self.vTypes) + "-t" + str(shifts) + "-s" + str(scenarios)
+        f = open("../../../Instances/" + name + ".svrp", "w")
+
+        # write instance name
+        f.write("NAME: " + name + "\n")
 
         # Write number of customers
         f.write("DIMENSION: " + str(self.n) + "\n")
 
         # Write number of shifts
-        f.write("SHIFTS: " + str(self.shifts) + "\n")
+        f.write("SHIFTS: " + str(shifts) + "\n")
+
+        # Write the number of scenarios
+        f.write("SCENARIOS: " + str(scenarios) + "\n")
 
         # Write demand distribution parameters
         f.write("DEMAND_MEAN: " + str(self.demandMean) + "\n")
@@ -224,24 +241,39 @@ class SVRPInstanceMaker:
         f.close()
 
     def plotInstance(self):
-        # plot customers
-        for i in range(1, self.clusters+1):
-            color = np.random.rand(3,1)
-            for c in self.customers:
-                if c.zone == i:
-                    marker = "o"
-                    if c.isDepot:
-                        marker = "s"
-                    elif not c.isDayCustomer:
-                        marker = "^"
-                    plt.plot(c.x, c.y, color=color, marker=marker)
+        fig = plt.figure()
+        fig.patch.set_alpha(0.0)
+        fig.suptitle(self.instanceName , fontsize=20)
+        ax = fig.add_subplot(111)
 
-        plt.axis([0, max(self.customers, key=lambda c : c.x).x, 0, max(self.customers, key=lambda c : c.y).y])
+        # plot daytime customers
+        daytimeCustomers = [c for c in self.customers if c.isDepot == False and c.isDayCustomer]
+        dot = ax.scatter([c.x for c in daytimeCustomers],[c.y for c in daytimeCustomers], c="#ffff00", marker="o", s=40)
+
+        # plot night customers
+        nightCustomers = [c for c in self.customers if c.isDepot == False and not c.isDayCustomer]
+        triangle = ax.scatter([c.x for c in nightCustomers],[c.y for c in nightCustomers], c="#0B159E", marker="^", s=40)
+
+        # plot depots
+        square = ax.scatter([c.x for c in self.depots],[c.y for c in self.depots], c="#ff0000", marker="s", s=40)
+
+        art = []
+        art.append(plt.legend((dot, triangle, square), ("Day Customers", "Night Customers", "Depots"),
+                   loc=9, bbox_to_anchor=(0.5, -0.1),
+                   scatterpoints=1,
+                   ncol=3,
+                   fontsize=8))
+        plt.xlim(0, max([c.x for c in self.customers]) * 1.05)
+        plt.ylim(0, max([c.y for c in self.customers]) * 1.05)
         plt.grid()
-        plt.show()
+
+        path = "../../../graphics/" + self.instanceName + "/"
+        if not os.path.exists(path):
+            os.makedirs(path)
+        plt.savefig(path + "instancePlot.png", additional_artists=art, bbox_inches="tight")
 
 m = SVRPInstanceMaker()
-m.createNewInstance()
+m.readCVRPInstance()
 
-m.customers.sort(key=lambda c : c.zone)
-print m.customers
+for vt in [2,3]:
+    m.createNewInstance(vt)

@@ -2,11 +2,127 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4cec1d4b-5995-468a-80d5-aef7145ace2a" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/vrp/svrp/inputdata/Cluster.py" afterPath="$PROJECT_DIR$/src/vrp/svrp/inputdata/Cluster.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/BatchMaker.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/batchFixer.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/fileRename.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/vrp/svrp/outputdata/ProblemSolution.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/vrp/svrp/outputdata/__init__.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/vrp/svrp/solver/BendersCBSolver.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/vrp/svrp/solver/SVRPCallback.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/vrp/svrp/solver/SVRPLazyCallback.py" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Instances/X-n1001-k43.vrp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Instances/X-n106-k14.vrp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Instances/X-n110-k13.vrp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Instances/X-n115-k10.vrp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Instances/X-n125-k30.vrp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Instances/X-n129-k18.vrp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Instances/X-n134-k13.vrp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Instances/X-n139-k10.vrp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Instances/X-n148-k46.vrp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Instances/X-n162-k11.vrp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Instances/X-n167-k10.vrp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Instances/X-n172-k51.vrp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Instances/X-n176-k26.vrp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Instances/X-n181-k23.vrp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Instances/X-n186-k15.vrp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Instances/X-n190-k8.vrp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Instances/X-n195-k51.vrp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Instances/X-n204-k19.vrp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Instances/X-n209-k16.vrp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Instances/X-n214-k11.vrp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Instances/X-n219-k73.vrp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Instances/X-n223-k34.vrp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Instances/X-n228-k23.vrp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Instances/X-n233-k16.vrp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Instances/X-n237-k14.vrp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Instances/X-n242-k48.opt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Instances/X-n242-k48.vrp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Instances/X-n247-k47.vrp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Instances/X-n251-k28.vrp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Instances/X-n256-k16.vrp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Instances/X-n261-k13.vrp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Instances/X-n266-k58.opt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Instances/X-n266-k58.vrp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Instances/X-n270-k35.opt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Instances/X-n270-k35.vrp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Instances/X-n275-k28.vrp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Instances/X-n280-k17.vrp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Instances/X-n284-k15.vrp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Instances/X-n289-k60.vrp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Instances/X-n294-k50.vrp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Instances/X-n298-k31.vrp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Instances/X-n303-k21.vrp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Instances/X-n308-k13.vrp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Instances/X-n313-k71.vrp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Instances/X-n317-k53.vrp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Instances/X-n322-k28.vrp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Instances/X-n327-k20.vrp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Instances/X-n331-k15.vrp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Instances/X-n336-k84.vrp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Instances/X-n344-k43.vrp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Instances/X-n351-k40.vrp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Instances/X-n359-k29.vrp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Instances/X-n367-k17.vrp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Instances/X-n376-k94.opt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Instances/X-n376-k94.vrp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Instances/X-n384-k52.vrp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Instances/X-n393-k38.vrp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Instances/X-n401-k29.vrp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Instances/X-n411-k19.vrp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Instances/X-n420-k130.opt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Instances/X-n420-k130.vrp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Instances/X-n429-k61.vrp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Instances/X-n439-k37.vrp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Instances/X-n449-k29.vrp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Instances/X-n459-k26.vrp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Instances/X-n469-k138.vrp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Instances/X-n480-k70.vrp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Instances/X-n491-k59.vrp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Instances/X-n502-k39.vrp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Instances/X-n513-k21.vrp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Instances/X-n524-k137.vrp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Instances/X-n536-k96.vrp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Instances/X-n548-k50.vrp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Instances/X-n561-k42.vrp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Instances/X-n573-k30.vrp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Instances/X-n586-k159.vrp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Instances/X-n599-k92.vrp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Instances/X-n613-k62.vrp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Instances/X-n627-k43.vrp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Instances/X-n641-k35.vrp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Instances/X-n655-k131.opt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Instances/X-n655-k131.vrp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Instances/X-n670-k126.vrp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Instances/X-n685-k75.vrp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Instances/X-n701-k44.vrp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Instances/X-n716-k35.vrp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Instances/X-n733-k159.vrp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Instances/X-n749-k98.vrp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Instances/X-n766-k71.vrp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Instances/X-n783-k48.vrp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Instances/X-n801-k40.vrp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Instances/X-n819-k171.vrp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Instances/X-n837-k142.vrp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Instances/X-n856-k95.vrp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Instances/X-n876-k59.vrp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Instances/X-n895-k37.vrp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Instances/X-n916-k207.vrp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Instances/X-n936-k151.vrp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Instances/X-n957-k87.vrp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Instances/X-n979-k58.vrp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Instances/new_instance.svrp" afterPath="" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/vrp/svrp/Main.py" afterPath="$PROJECT_DIR$/Main.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/SVRP.iml" afterPath="$PROJECT_DIR$/.idea/SVRP.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/vrp/data/SVRPInstanceMaker.py" afterPath="$PROJECT_DIR$/src/vrp/data/SVRPInstanceMaker.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/vrp/svrp/inputdata/Parameters.py" afterPath="$PROJECT_DIR$/src/vrp/svrp/inputdata/Parameters.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/vrp/svrp/inputdata/ProblemData.py" afterPath="$PROJECT_DIR$/src/vrp/svrp/inputdata/ProblemData.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/vrp/svrp/inputdata/Scenario.py" afterPath="$PROJECT_DIR$/src/vrp/svrp/inputdata/Scenario.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/vrp/svrp/solver/BendersSolver.py" afterPath="$PROJECT_DIR$/src/vrp/svrp/solver/BendersSolver.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/vrp/svrp/solver/Constraint.py" afterPath="$PROJECT_DIR$/src/vrp/svrp/solver/Constraint.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/vrp/svrp/solver/Model.py" afterPath="$PROJECT_DIR$/src/vrp/svrp/solver/Model.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/vrp/svrp/solver/Variable.py" afterPath="$PROJECT_DIR$/src/vrp/svrp/solver/Variable.py" />
     </list>
     <ignored path="SVRP.iws" />
@@ -21,13 +137,18 @@
   </component>
   <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/SVRP$ProblemData__1_.coverage" NAME="ProblemData (1) Coverage Results" MODIFIED="1463596625136" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/vrp/svrp/inputdata" />
+    <SUITE FILE_PATH="coverage/SVRP$ProblemData__1_.coverage" NAME="ProblemData (1) Coverage Results" MODIFIED="1464175626077" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/vrp/svrp/inputdata" />
+    <SUITE FILE_PATH="coverage/SVRP$batchFixer.coverage" NAME="batchFixer Coverage Results" MODIFIED="1464672629560" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/SVRP$Test.coverage" NAME="Test Coverage Results" MODIFIED="1464529768731" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
     <SUITE FILE_PATH="coverage/SVRP$Data.coverage" NAME="Data Coverage Results" MODIFIED="1462170371120" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/vrp/data" />
     <SUITE FILE_PATH="coverage/SVRP$Data__1_.coverage" NAME="Data (1) Coverage Results" MODIFIED="1462195152706" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/vrp/data" />
-    <SUITE FILE_PATH="coverage/SVRP$SVRPInstanceMaker.coverage" NAME="SVRPInstanceMaker Coverage Results" MODIFIED="1463584728507" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/vrp/data" />
+    <SUITE FILE_PATH="coverage/SVRP$SVRPInstanceMaker.coverage" NAME="SVRPInstanceMaker Coverage Results" MODIFIED="1464680123210" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/vrp/data" />
+    <SUITE FILE_PATH="coverage/SVRP$ProblemSolution.coverage" NAME="ProblemSolution Coverage Results" MODIFIED="1464642988460" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/vrp/svrp/outputdata" />
+    <SUITE FILE_PATH="coverage/SVRP$BatchMaker.coverage" NAME="BatchMaker Coverage Results" MODIFIED="1464680309413" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/SVRP$fileRename.coverage" NAME="fileRename Coverage Results" MODIFIED="1464671477706" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/SVRP$BendersSolver.coverage" NAME="BendersSolver Coverage Results" MODIFIED="1463390222996" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/vrp/svrp/solver" />
     <SUITE FILE_PATH="coverage/SVRP$ProblemData.coverage" NAME="ProblemData Coverage Results" MODIFIED="1462263763246" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/vrp/svrp/problemdata" />
-    <SUITE FILE_PATH="coverage/SVRP$Main.coverage" NAME="Main Coverage Results" MODIFIED="1463598855066" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/vrp/svrp" />
+    <SUITE FILE_PATH="coverage/SVRP$Main.coverage" NAME="Main Coverage Results" MODIFIED="1464857657666" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/vrp/svrp" />
   </component>
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
@@ -38,95 +159,68 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="new_instance.svrp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Instances/new_instance.svrp">
+      <file leaf-file-name="BendersCBSolver.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/vrp/svrp/solver/BendersCBSolver.py">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="105" column="0" selection-start-line="105" selection-start-column="0" selection-end-line="105" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="BendersSolver.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/vrp/svrp/solver/BendersSolver.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-4.053571">
-              <caret line="84" column="38" selection-start-line="84" selection-start-column="38" selection-end-line="84" selection-end-column="38" />
+              <caret line="27" column="47" selection-start-line="27" selection-start-column="47" selection-end-line="27" selection-end-column="47" />
               <folding>
                 <element signature="e#0#31#0" expanded="true" />
+                <element signature="e#2688#3166#0" expanded="false" />
+                <element signature="e#3268#4102#0" expanded="false" />
+                <element signature="e#4162#4880#0" expanded="false" />
+                <element signature="e#4935#6008#0" expanded="false" />
+                <element signature="e#6071#6914#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="svrp_master.lp" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/lps/svrp_master.lp">
+      <file leaf-file-name="SVRPLazyCallback.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/vrp/svrp/solver/SVRPLazyCallback.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="28.333334">
-              <caret line="670" column="0" selection-start-line="670" selection-start-column="0" selection-end-line="670" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Variable.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/vrp/svrp/solver/Variable.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-11.962963">
-              <caret line="19" column="31" selection-start-line="19" selection-start-column="31" selection-end-line="19" selection-end-column="31" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Constraint.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/vrp/svrp/solver/Constraint.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-10.703704">
-              <caret line="17" column="31" selection-start-line="17" selection-start-column="31" selection-end-line="17" selection-end-column="31" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Data.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/vrp/data/Data.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-5.037037">
-              <caret line="8" column="33" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="33" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ProblemData.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/vrp/svrp/inputdata/ProblemData.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-4.037037">
-              <caret line="93" column="0" selection-start-line="93" selection-start-column="0" selection-end-line="93" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="252" column="26" selection-start-line="252" selection-start-column="26" selection-end-line="252" selection-end-column="26" />
               <folding>
-                <element signature="e#0#14#0" expanded="true" />
+                <element signature="e#0#31#0" expanded="true" />
+                <element signature="e#471#643#0" expanded="false" />
+                <element signature="e#1156#2297#0" expanded="false" />
+                <element signature="e#2373#3792#0" expanded="false" />
+                <element signature="e#3868#4489#0" expanded="false" />
+                <element signature="e#4574#5766#0" expanded="false" />
+                <element signature="e#5851#6833#0" expanded="false" />
+                <element signature="e#6923#8241#0" expanded="false" />
+                <element signature="e#8294#9089#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Cluster.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/vrp/svrp/inputdata/Cluster.py">
+      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-8.888889">
-              <caret line="50" column="26" selection-start-line="50" selection-start-column="26" selection-end-line="50" selection-end-column="26" />
+            <state vertical-scroll-proportion="0.17586207">
+              <caret line="6" column="9" selection-start-line="6" selection-start-column="9" selection-end-line="6" selection-end-column="9" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Scenario.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/vrp/svrp/inputdata/Scenario.py">
+      <file leaf-file-name="Model.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/vrp/svrp/solver/Model.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-5.259259">
-              <caret line="69" column="39" selection-start-line="69" selection-start-column="39" selection-end-line="69" selection-end-column="39" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="18" column="26" selection-start-line="18" selection-start-column="26" selection-end-line="18" selection-end-column="26" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Main.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Main.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="20" column="18" selection-start-line="20" selection-start-column="18" selection-end-line="20" selection-end-column="18" />
               <folding />
             </state>
           </provider>
@@ -160,20 +254,38 @@
         <option value="$PROJECT_DIR$/src/vrp/svrp/inputdata/Cenario.py" />
         <option value="$PROJECT_DIR$/src/vrp/svrp/inputdata/Route.py" />
         <option value="$PROJECT_DIR$/src/vrp/svrp/solver/Solver.py" />
-        <option value="$PROJECT_DIR$/src/vrp/svrp/Main.py" />
-        <option value="$PROJECT_DIR$/src/vrp/svrp/inputdata/Parameters.py" />
-        <option value="$PROJECT_DIR$/src/vrp/svrp/solver/Model.py" />
-        <option value="$PROJECT_DIR$/src/vrp/data/SVRPInstanceMaker.py" />
         <option value="$PROJECT_DIR$/Instances/new_instance.svrp" />
         <option value="$PROJECT_DIR$/src/vrp/data/Data.py" />
+        <option value="$PROJECT_DIR$/src/vrp/svrp/inputdata/Cluster.py" />
+        <option value="$PROJECT_DIR$/lps/svrp_master.lp" />
+        <option value="$PROJECT_DIR$/src/vrp/svrp/solver/BendersLazyCallback.py" />
+        <option value="$PROJECT_DIR$/src/vrp/svrp/inputdata/Parameters.py" />
+        <option value="$PROJECT_DIR$/lps/svrp_subproblem.lp" />
+        <option value="$PROJECT_DIR$/Instances/I-n101-d2-t10.svrp" />
+        <option value="$PROJECT_DIR$/src/Test.py" />
+        <option value="$PROJECT_DIR$/src/vrp/svrp/Main.py" />
         <option value="$PROJECT_DIR$/src/vrp/svrp/solver/Variable.py" />
         <option value="$PROJECT_DIR$/src/vrp/svrp/solver/Constraint.py" />
-        <option value="$PROJECT_DIR$/src/vrp/svrp/inputdata/ProblemData.py" />
+        <option value="$PROJECT_DIR$/Instances/PS-n99-d2-vt2-t10-s10.svrp" />
         <option value="$PROJECT_DIR$/src/vrp/svrp/inputdata/Scenario.py" />
-        <option value="$PROJECT_DIR$/src/vrp/svrp/inputdata/Cluster.py" />
-        <option value="$PROJECT_DIR$/lps/svrp_subproblem.lp" />
+        <option value="$PROJECT_DIR$/src/vrp/data/BatchMaker.py" />
+        <option value="$PROJECT_DIR$/src/vrp/svrp/outputdata/ProblemSolution.py" />
+        <option value="$PROJECT_DIR$/src/vrp/svrp/inputdata/ProblemData.py" />
+        <option value="$PROJECT_DIR$/fileRename.py" />
+        <option value="$PROJECT_DIR$/batchFixer.py" />
+        <option value="$PROJECT_DIR$/BatchMaker.py" />
+        <option value="$PROJECT_DIR$/src/vrp/data/SVRPInstanceMaker.py" />
+        <option value="$PROJECT_DIR$/lps/svrpCB_master3.lp" />
+        <option value="$PROJECT_DIR$/src/vrp/svrp/solver/SVRPUserCutCallback.py" />
+        <option value="$PROJECT_DIR$/src/vrp/svrp/solver/SVRPLazyCutCallback.py" />
+        <option value="$PROJECT_DIR$/src/vrp/svrp/solver/SVRPCallback.py" />
+        <option value="$PROJECT_DIR$/src/vrp/svrp/solver/Model.py" />
+        <option value="$PROJECT_DIR$/Main.py" />
         <option value="$PROJECT_DIR$/src/vrp/svrp/solver/BendersSolver.py" />
-        <option value="$PROJECT_DIR$/lps/svrp_master.lp" />
+        <option value="$PROJECT_DIR$/src/vrp/svrp/output/PC-n68-d2-vt2-t10-s10_regularBenders.log" />
+        <option value="$PROJECT_DIR$/src/vrp/svrp/solver/BendersCBSolver.py" />
+        <option value="$PROJECT_DIR$/src/vrp/svrp/solver/SVRPLazyCallback.py" />
+        <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
   </component>
@@ -195,7 +307,7 @@
     <OptionsSetting value="true" id="Update" />
     <OptionsSetting value="true" id="Status" />
     <OptionsSetting value="true" id="Edit" />
-    <ConfirmationsSetting value="0" id="Add" />
+    <ConfirmationsSetting value="2" id="Add" />
     <ConfirmationsSetting value="0" id="Remove" />
   </component>
   <component name="ProjectView">
@@ -213,8 +325,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -265,118 +375,10 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="SVRP" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="SVRP" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="vrp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="svrp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="SVRP" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="SVRP" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="vrp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="svrp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="solver" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="SVRP" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="SVRP" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="vrp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="svrp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="inputdata" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="SVRP" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="SVRP" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="vrp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="data" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="SVRP" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="SVRP" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="lps" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -385,72 +387,18 @@
     <property name="settings.editor.splitter.proportion" value="0.2" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\CastillaEsmeral\Documents\PUC\SVRP\src\vrp\svrp" />
-      <recent name="C:\Users\CastillaEsmeral\Documents\PUC\SVRP\src\vrp\data" />
-      <recent name="C:\Users\CastillaEsmeral\Documents\PUC\SVRP\src" />
-      <recent name="C:\Users\CastillaEsmeral\Documents\PUC\SVRP\vrp\data" />
-      <recent name="C:\Users\CastillaEsmeral\Documents\PUC\SVRP\vrp" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\CastillaEsmeral\Documents\PUC\SVRP\src\vrp\svrp\solver" />
     </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\fabian\Desktop\SVRP" />
+      <recent name="C:\Users\fabian\Desktop\SVRP\src" />
+      <recent name="C:\Users\CastillaEsmeral\Documents\PUC\SVRP\src\vrp\svrp" />
+      <recent name="C:\Users\CastillaEsmeral\Documents\PUC\SVRP\src\vrp\data" />
+      <recent name="C:\Users\CastillaEsmeral\Documents\PUC\SVRP\src" />
+    </key>
   </component>
   <component name="RunManager" selected="Python.Main">
-    <configuration default="false" name="ProblemData" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src/vrp/svrp/problemdata" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="SVRP" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/vrp/svrp/problemdata/ProblemData.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <method />
-    </configuration>
-    <configuration default="false" name="SVRPInstanceMaker" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src/vrp/data" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="SVRP" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/vrp/data/SVRPInstanceMaker.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <method />
-    </configuration>
-    <configuration default="false" name="BendersSolver" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src/vrp/svrp/solver" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="SVRP" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/vrp/svrp/solver/BendersSolver.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <method />
-    </configuration>
     <configuration default="false" name="Main" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -464,25 +412,79 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="SVRP" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/vrp/svrp/Main.py" />
+      <option name="SCRIPT_NAME" value="C:\Users\fabian\Desktop\SVRP\Main.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <method />
     </configuration>
-    <configuration default="false" name="ProblemData (1)" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration default="false" name="SVRPInstanceMaker" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="C:\Anaconda\python.exe" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src/vrp/svrp/inputdata" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src/vrp/data" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="SVRP" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/vrp/svrp/inputdata/ProblemData.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/vrp/data/SVRPInstanceMaker.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <method />
+    </configuration>
+    <configuration default="false" name="BatchMaker" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="C:\Anaconda\python.exe" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="SVRP" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/BatchMaker.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <method />
+    </configuration>
+    <configuration default="false" name="fileRename" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="C:\Anaconda\python.exe" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="SVRP" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/fileRename.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <method />
+    </configuration>
+    <configuration default="false" name="batchFixer" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="C:\Anaconda\python.exe" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="SVRP" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/batchFixer.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <method />
@@ -681,19 +683,19 @@
       <method />
     </configuration>
     <list size="5">
-      <item index="0" class="java.lang.String" itemvalue="Python.ProblemData" />
+      <item index="0" class="java.lang.String" itemvalue="Python.Main" />
       <item index="1" class="java.lang.String" itemvalue="Python.SVRPInstanceMaker" />
-      <item index="2" class="java.lang.String" itemvalue="Python.BendersSolver" />
-      <item index="3" class="java.lang.String" itemvalue="Python.Main" />
-      <item index="4" class="java.lang.String" itemvalue="Python.ProblemData (1)" />
+      <item index="2" class="java.lang.String" itemvalue="Python.BatchMaker" />
+      <item index="3" class="java.lang.String" itemvalue="Python.fileRename" />
+      <item index="4" class="java.lang.String" itemvalue="Python.batchFixer" />
     </list>
     <recent_temporary>
       <list size="5">
         <item index="0" class="java.lang.String" itemvalue="Python.Main" />
-        <item index="1" class="java.lang.String" itemvalue="Python.ProblemData (1)" />
+        <item index="1" class="java.lang.String" itemvalue="Python.BatchMaker" />
         <item index="2" class="java.lang.String" itemvalue="Python.SVRPInstanceMaker" />
-        <item index="3" class="java.lang.String" itemvalue="Python.BendersSolver" />
-        <item index="4" class="java.lang.String" itemvalue="Python.ProblemData" />
+        <item index="3" class="java.lang.String" itemvalue="Python.batchFixer" />
+        <item index="4" class="java.lang.String" itemvalue="Python.fileRename" />
       </list>
     </recent_temporary>
   </component>
@@ -712,27 +714,49 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22474378" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.193265" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39915523" sideWeight="0.50416666" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32283464" sideWeight="0.49583334" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3968504" sideWeight="0.49583334" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31663975" sideWeight="0.49583334" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3273495" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.37322834" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.48976377" sideWeight="0.49583334" order="3" side_tool="false" content_ui="tabs" />
     </layout>
+    <layout-to-restore>
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39915523" sideWeight="0.50416666" order="8" side_tool="true" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.30866143" sideWeight="0.49583334" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2057101" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.37322834" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3968504" sideWeight="0.49583334" order="3" side_tool="false" content_ui="tabs" />
+    </layout-to-restore>
   </component>
   <component name="Vcs.Log.UiProperties">
     <option name="RECENTLY_FILTERED_USER_GROUPS">
@@ -747,72 +771,373 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="python-line">
+          <url>file://C:/Anaconda/Lib/site-packages/cplex/_internal/_subinterfaces.py</url>
+          <line>960</line>
+          <option name="timeStamp" value="88" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="python-line">
+          <url>file://$PROJECT_DIR$/src/vrp/svrp/solver/SVRPCallback.py</url>
+          <line>354</line>
+          <option name="timeStamp" value="93" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="python-line">
+          <url>file://$PROJECT_DIR$/src/vrp/svrp/solver/SVRPCallback.py</url>
+          <line>281</line>
+          <option name="timeStamp" value="95" />
+        </line-breakpoint>
+      </breakpoints>
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="60" />
+      <default-breakpoints>
+        <breakpoint type="python-exception">
+          <properties notifyOnTerminate="true" exception="BaseException">
+            <option name="notifyOnTerminate" value="true" />
+          </properties>
+        </breakpoint>
+      </default-breakpoints>
+      <option name="time" value="101" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/vrp/svrp/inputdata/ProblemData.py">
+    <entry file="file://$PROJECT_DIR$/src/vrp/svrp/solver/Model.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="18" column="26" selection-start-line="18" selection-start-column="26" selection-end-line="18" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="20" column="18" selection-start-line="20" selection-start-column="18" selection-end-line="20" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PC-n157-d2-vt2_batch.bat">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.0">
+          <caret line="0" column="52" selection-start-line="0" selection-start-column="52" selection-end-line="0" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PC-n157-d2-vt3_batch.bat">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.0">
+          <caret line="0" column="52" selection-start-line="0" selection-start-column="52" selection-end-line="0" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PC-n200-d2-vt2_batch.bat">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.0">
+          <caret line="0" column="52" selection-start-line="0" selection-start-column="52" selection-end-line="0" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PC-n200-d2-vt3_batch.bat">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.0">
+          <caret line="0" column="52" selection-start-line="0" selection-start-column="52" selection-end-line="0" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PS-n101-d2-vt2_batch.bat">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.0">
+          <caret line="0" column="52" selection-start-line="0" selection-start-column="52" selection-end-line="0" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PS-n101-d2-vt3_batch.bat">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.0">
+          <caret line="0" column="52" selection-start-line="0" selection-start-column="52" selection-end-line="0" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PS-n120-d2-vt2_batch.bat">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.0">
+          <caret line="0" column="52" selection-start-line="0" selection-start-column="52" selection-end-line="0" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PS-n120-d2-vt3_batch.bat">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.0">
+          <caret line="0" column="52" selection-start-line="0" selection-start-column="52" selection-end-line="0" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PS-n143-d2-vt2_batch.bat">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.0">
+          <caret line="0" column="52" selection-start-line="0" selection-start-column="52" selection-end-line="0" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PS-n143-d2-vt3_batch.bat">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="52" selection-start-line="0" selection-start-column="52" selection-end-line="0" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/fileRename.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-6.9259257">
+          <caret line="11" column="28" selection-start-line="11" selection-start-column="28" selection-end-line="11" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/batchFixer.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-7.037037">
+          <caret line="15" column="60" selection-start-line="15" selection-start-column="31" selection-end-line="15" selection-end-column="60" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PC-n153-d2-vt2_batch.bat">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="39" selection-start-line="0" selection-start-column="25" selection-end-line="0" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PC-n68-d2-vt3_batch.bat">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.53125">
+          <caret line="12" column="0" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PC-n78-d2-vt2_batch.bat">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="38" selection-start-line="0" selection-start-column="25" selection-end-line="0" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PC-n78-d2-vt3_batch.bat">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="38" selection-start-line="0" selection-start-column="25" selection-end-line="0" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PC-n101-d2-vt2_batch.bat">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="39" selection-start-line="0" selection-start-column="25" selection-end-line="0" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PC-n101-d2-vt3_batch.bat">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.53125">
+          <caret line="12" column="0" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/vrp/data/SVRPInstanceMaker.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-5.703704">
+          <caret line="67" column="27" selection-start-line="67" selection-start-column="27" selection-end-line="67" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PS-n69-d2-vt2_batch.bat">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="38" selection-start-line="0" selection-start-column="25" selection-end-line="0" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PS-n69-d2-vt3_batch.bat">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="38" selection-start-line="0" selection-start-column="25" selection-end-line="0" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PS-n80-d2-vt2_batch.bat">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="38" selection-start-line="0" selection-start-column="25" selection-end-line="0" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PC-n68-d2-vt2_batch.bat">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="38" selection-start-line="0" selection-start-column="25" selection-end-line="0" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PS-n80-d2-vt3_batch.bat">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5543478">
+          <caret line="12" column="0" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Instances/A-n69-k9.vrp">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/BatchMaker.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.18478261">
+          <caret line="4" column="19" selection-start-line="4" selection-start-column="19" selection-end-line="4" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Downloads/graph-algs.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.14003295">
+          <caret line="107" column="5" selection-start-line="107" selection-start-column="5" selection-end-line="107" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/vrp/svrp/outputdata/ProblemSolution.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-13.296296">
+          <caret line="83" column="24" selection-start-line="83" selection-start-column="24" selection-end-line="83" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/vrp/svrp/solver/Solver.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-3.310345">
+          <caret line="181" column="26" selection-start-line="181" selection-start-column="26" selection-end-line="181" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/Anaconda/Lib/site-packages/cplex/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="732" column="84" selection-start-line="732" selection-start-column="62" selection-end-line="732" selection-end-column="84" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/Anaconda/Lib/site-packages/cplex/_internal/_constants.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="521" column="0" selection-start-line="521" selection-start-column="0" selection-end-line="521" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/Anaconda/Lib/site-packages/cplex/_internal/_aux_functions.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="24" column="0" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/Anaconda/Lib/site-packages/cplex/_internal/_subinterfaces.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-5.4827585">
+          <caret line="1005" column="0" selection-start-line="1005" selection-start-column="0" selection-end-line="1005" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/Anaconda/Lib/site-packages/cplex/_internal/_list_array_utils.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="49" column="0" selection-start-line="49" selection-start-column="0" selection-end-line="49" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/Anaconda/Lib/site-packages/cplex/_internal/_procedural.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="2613" column="28" selection-start-line="2613" selection-start-column="28" selection-end-line="2613" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/Anaconda/Lib/site-packages/cplex/_internal/_pycplex.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="378" column="14" selection-start-line="378" selection-start-column="14" selection-end-line="378" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/Anaconda/Lib/site-packages/cplex/callbacks.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="1367" column="8" selection-start-line="1367" selection-start-column="8" selection-end-line="1367" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/vrp/svrp/inputdata/Parameters.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="1" column="4" selection-start-line="1" selection-start-column="4" selection-end-line="1" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/vrp/svrp/solver/SVRPCallback.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="296" column="45" selection-start-line="296" selection-start-column="45" selection-end-line="296" selection-end-column="45" />
           <folding>
-            <element signature="e#0#14#0" expanded="true" />
+            <element signature="e#0#31#0" expanded="false" />
+            <element signature="e#781#1922#0" expanded="false" />
+            <element signature="e#1998#3417#0" expanded="false" />
+            <element signature="e#3493#4114#0" expanded="false" />
+            <element signature="e#4199#5391#0" expanded="false" />
+            <element signature="e#5476#6458#0" expanded="false" />
+            <element signature="e#6548#7866#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/vrp/svrp/output/PC-n68-d2-vt2-t10-s10_regularBenders.log">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-1.2749392">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/vrp/svrp/output/PC-n68-d2-vt2-t10-s10_regularBenders.log.csv">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-1.3163017">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Instances/PC-n68-d2-vt2-t10-s10.svrp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.14003295">
+          <caret line="88" column="9" selection-start-line="88" selection-start-column="9" selection-end-line="88" selection-end-column="9" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/vrp/svrp/solver/BendersSolver.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="444" column="75" selection-start-line="444" selection-start-column="75" selection-end-line="444" selection-end-column="75" />
+          <caret line="418" column="22" selection-start-line="418" selection-start-column="22" selection-end-line="418" selection-end-column="22" />
           <folding>
-            <element signature="e#0#31#0" expanded="true" />
+            <element signature="e#0#31#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/vrp/svrp/solver/Variable.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="6" column="16" selection-start-line="6" selection-start-column="16" selection-end-line="6" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lps/svrp_master.lp">
+    <entry file="file://$PROJECT_DIR$/lps/svrpCB_master1.lp">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/vrp/svrp/solver/Constraint.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="8" column="15" selection-start-line="8" selection-start-column="15" selection-end-line="8" selection-end-column="15" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/vrp/svrp/solver/BendersSolver.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#31#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/vrp/svrp/solver/Constraint.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="6" column="20" selection-start-line="6" selection-start-column="20" selection-end-line="6" selection-end-column="20" />
           <folding />
         </state>
       </provider>
@@ -820,361 +1145,56 @@
     <entry file="file://$PROJECT_DIR$/src/vrp/svrp/solver/Model.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="26" column="8" selection-start-line="26" selection-start-column="8" selection-end-line="26" selection-end-column="8" />
+          <caret line="18" column="26" selection-start-line="18" selection-start-column="26" selection-end-line="18" selection-end-column="26" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/vrp/svrp/solver/Solver.py">
+    <entry file="file://$PROJECT_DIR$/Main.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="203" column="8" selection-start-line="203" selection-start-column="8" selection-end-line="203" selection-end-column="49" />
+          <caret line="20" column="18" selection-start-line="20" selection-start-column="18" selection-end-line="20" selection-end-column="18" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/vrp/svrp/inputdata/ProblemData.py">
+    <entry file="file://$PROJECT_DIR$/src/vrp/svrp/solver/BendersCBSolver.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="52" column="39" selection-start-line="52" selection-start-column="39" selection-end-line="52" selection-end-column="39" />
-          <folding>
-            <element signature="e#0#14#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/vrp/svrp/Main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#18#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/vrp/svrp/inputdata/Scenario.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="14" column="24" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Instances/new_instance.svrp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="7" column="15" selection-start-line="7" selection-start-column="15" selection-end-line="7" selection-end-column="15" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/vrp/svrp/inputdata/Parameters.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="17" selection-start-line="0" selection-start-column="17" selection-end-line="0" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/vrp/data/SVRPInstanceMaker.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="165" column="40" selection-start-line="165" selection-start-column="40" selection-end-line="165" selection-end-column="40" />
-          <folding>
-            <element signature="e#0#14#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/vrp/svrp/solver/Solver.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/vrp/svrp/inputdata/Cluster.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="15" column="26" selection-start-line="15" selection-start-column="26" selection-end-line="15" selection-end-column="26" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/vrp/svrp/inputdata/ProblemData.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="130" column="0" selection-start-line="130" selection-start-column="0" selection-end-line="130" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#14#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/vrp/data/Data.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="7" column="34" selection-start-line="7" selection-start-column="34" selection-end-line="7" selection-end-column="34" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/vrp/svrp/inputdata/Scenario.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="42" column="43" selection-start-line="42" selection-start-column="43" selection-end-line="42" selection-end-column="43" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/vrp/svrp/inputdata/Parameters.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="6" column="0" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/vrp/svrp/Main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="15" column="14" selection-start-line="15" selection-start-column="14" selection-end-line="15" selection-end-column="14" />
-          <folding>
-            <element signature="e#0#18#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/vrp/svrp/solver/Solver.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/vrp/svrp/inputdata/Scenario.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="8" column="8" selection-start-line="8" selection-start-column="8" selection-end-line="8" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/vrp/svrp/inputdata/Route.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="3" column="28" selection-start-line="3" selection-start-column="28" selection-end-line="3" selection-end-column="28" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/vrp/svrp/solver/Variable.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="15" column="28" selection-start-line="15" selection-start-column="28" selection-end-line="15" selection-end-column="28" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/vrp/data/SVRPInstanceMaker.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#14#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Instances/X-n101-k25.vrp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="210" column="0" selection-start-line="210" selection-start-column="0" selection-end-line="210" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Instances/X-n115-k10.vrp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Instances/X-n110-k13.vrp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Instances/X-n106-k14.vrp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.42009884">
-          <caret line="15" column="11" selection-start-line="15" selection-start-column="11" selection-end-line="15" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/vrp/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/vrp/svrp/inputdata/Route.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="5" column="32" selection-start-line="5" selection-start-column="32" selection-end-line="5" selection-end-column="32" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/vrp/svrp/inputdata/Parameters.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.02866779">
-          <caret line="1" column="18" selection-start-line="1" selection-start-column="18" selection-end-line="1" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/vrp/svrp/solver/Model.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="26" column="8" selection-start-line="26" selection-start-column="8" selection-end-line="26" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lps/svrp.lp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/vrp/svrp/Main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-8.074074">
-          <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#18#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/vrp/svrp/solver/Solver.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-6.296296">
-          <caret line="212" column="32" selection-start-line="212" selection-start-column="32" selection-end-line="212" selection-end-column="62" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/pydevd.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="2402" column="0" selection-start-line="2402" selection-start-column="0" selection-end-line="2402" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Instances/X-n101-k25.vrp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="111" column="4" selection-start-line="111" selection-start-column="4" selection-end-line="111" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/vrp/data/SVRPInstanceMaker.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.44444445">
-          <caret line="109" column="0" selection-start-line="109" selection-start-column="0" selection-end-line="109" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#14#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/vrp/data/Data.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-5.037037">
-          <caret line="8" column="33" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="33" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Instances/new_instance.svrp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="105" column="0" selection-start-line="105" selection-start-column="0" selection-end-line="105" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/vrp/svrp/solver/Variable.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-11.962963">
-          <caret line="19" column="31" selection-start-line="19" selection-start-column="31" selection-end-line="19" selection-end-column="31" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/vrp/svrp/solver/Constraint.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-10.703704">
-          <caret line="17" column="31" selection-start-line="17" selection-start-column="31" selection-end-line="17" selection-end-column="31" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/vrp/svrp/inputdata/Scenario.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-5.259259">
-          <caret line="69" column="39" selection-start-line="69" selection-start-column="39" selection-end-line="69" selection-end-column="39" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/vrp/svrp/inputdata/Cluster.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-8.888889">
-          <caret line="50" column="26" selection-start-line="50" selection-start-column="26" selection-end-line="50" selection-end-column="26" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/vrp/svrp/inputdata/ProblemData.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-4.037037">
-          <caret line="93" column="0" selection-start-line="93" selection-start-column="0" selection-end-line="93" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#14#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lps/svrp_subproblem.lp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-2.6218905">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/vrp/svrp/solver/BendersSolver.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-4.053571">
-          <caret line="84" column="38" selection-start-line="84" selection-start-column="38" selection-end-line="84" selection-end-column="38" />
+          <caret line="27" column="47" selection-start-line="27" selection-start-column="47" selection-end-line="27" selection-end-column="47" />
           <folding>
             <element signature="e#0#31#0" expanded="true" />
+            <element signature="e#2688#3166#0" expanded="false" />
+            <element signature="e#3268#4102#0" expanded="false" />
+            <element signature="e#4162#4880#0" expanded="false" />
+            <element signature="e#4935#6008#0" expanded="false" />
+            <element signature="e#6071#6914#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lps/svrp_master.lp">
+    <entry file="file://$PROJECT_DIR$/src/vrp/svrp/solver/SVRPLazyCallback.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="28.333334">
-          <caret line="670" column="0" selection-start-line="670" selection-start-column="0" selection-end-line="670" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="252" column="26" selection-start-line="252" selection-start-column="26" selection-end-line="252" selection-end-column="26" />
+          <folding>
+            <element signature="e#0#31#0" expanded="true" />
+            <element signature="e#471#643#0" expanded="false" />
+            <element signature="e#1156#2297#0" expanded="false" />
+            <element signature="e#2373#3792#0" expanded="false" />
+            <element signature="e#3868#4489#0" expanded="false" />
+            <element signature="e#4574#5766#0" expanded="false" />
+            <element signature="e#5851#6833#0" expanded="false" />
+            <element signature="e#6923#8241#0" expanded="false" />
+            <element signature="e#8294#9089#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.17586207">
+          <caret line="6" column="9" selection-start-line="6" selection-start-column="9" selection-end-line="6" selection-end-column="9" />
           <folding />
         </state>
       </provider>

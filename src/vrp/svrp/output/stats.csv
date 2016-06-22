@@ -1,0 +1,4 @@
+Instance;Customers;Depots;VTypes;Shifts;Scenarios;Obj;O_Cuts;F_Cuts;Callbacks;Time(s)
+PC-n68-d2-vt2-t10-s10;68;2;2;10;10;100,00;0;0;0;10,04
+PC-n68-d2-vt2-t10-s10;68;2;2;10;10;586453,68;29376;0;166;701,99
+PC-n68-d2-vt2-t10-s10;68;2;2;10;10;-1,00;0;0;0;1262,79

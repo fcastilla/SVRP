@@ -1,3 +1,5 @@
+from __future__ import division
+
 import Tkinter
 import tkFileDialog
 import re
@@ -5,10 +7,25 @@ import math
 import numpy as np
 
 from src.vrp.data.Data import *
+from src.vrp.svrp.inputdata.Scenario import Scenario
+from src.vrp.svrp.inputdata.Parameters import Parameters as params
+from src.vrp.svrp.outputdata.ProblemSolution import ProblemSolution
+
+class Singleton(type):
+    _instances = {}
+    def __call__(cls, *args, **kwargs):
+        if cls not in cls._instances:
+            cls._instances[cls] = super(Singleton, cls).__call__(*args, **kwargs)
+        return cls._instances[cls]
 
 
-class ProblemData:
-    def __init__(self):
+class ProblemData(object):
+    __metaclass__ = Singleton
+
+    def __init__(self, path=""):
+        print "creating problemdata instance"
+        self.instanceName = ""
+        self.problemSolution = None
         self.n = 0
         self.shifts = 0
         self.depotOperationCost = 0
@@ -27,12 +44,18 @@ class ProblemData:
         self.depotCosts = {}
         self.distances = {}
         self.vehicleTypes = []
-        self.readInstance()
+        self.scenarios = {}
+        self.readInstance(path)
+        self.createScenarios()
+        self.master = None
 
-    def readInstance(self):
+    def readInstance(self, path=""):
         # Open file dialog to select base vrp instance
-        Tkinter.Tk().withdraw()
-        path = tkFileDialog.askopenfilename(filetypes=[("VRP Instances", ".svrp")])
+        if path == "":
+            Tkinter.Tk().withdraw()
+            path = tkFileDialog.askopenfilename(filetypes=[("VRP Instances", ".svrp")])
+
+        self.instanceName = path.replace(".svrp", "")
 
         f = open(path)
         section = 0
@@ -40,8 +63,13 @@ class ProblemData:
         for line in f:
             if "DIMENSION" in line:
                 self.n = int(re.search(r'\d+', line).group())
+            elif "NAME" in line:
+                info = [str(x) for x in line.split()]
+                self.instanceName = info[1]
             elif "SHIFTS" in line:
                 self.shifts = int(re.search(r'\d+', line).group())
+            elif "SCENARIOS" in line:
+                params.numberOfScenariosPerShift = int(re.search(r'\d+', line).group())
             elif "DEMAND_MEAN" in line:
                 self.demandDistributionMean = float(re.search(r"[-+]?\d*\.\d+|\d+", line).group())
             elif "DEMAND_SD" in line:
@@ -97,6 +125,8 @@ class ProblemData:
         self.setAfternoonCustomers()
         self.makeDemandDistribution()
         self.computeDistances()
+        self.problemSolution = ProblemSolution()
+        self.problemSolution.initialize(self)
 
     def setAfternoonCustomers(self):
         for key, c in self.customers.iteritems():
@@ -104,7 +134,8 @@ class ProblemData:
                 self.afternoonCustomers[c.id] = c
 
     def makeDemandDistribution(self):
-        self.demandDistribution = list(np.random.normal(self.demandDistributionMean, self.demandDistributionSD, self.shifts))
+        days = int(math.ceil((self.shifts + 1) / 2))
+        self.demandDistribution = list(np.random.normal(self.demandDistributionMean, self.demandDistributionSD, days))
         print self.demandDistribution
 
     def computeDistances(self):
@@ -147,5 +178,12 @@ class ProblemData:
             except KeyError:
                 pass
         return depot
+
+    def createScenarios(self):
+        print "Creating scenarios..."
+        for t in range(self.shifts):
+            self.scenarios[t] = {}
+            for i in range(params.numberOfScenariosPerShift):
+                self.scenarios[t][i] = Scenario(i,t,self)
 
 # data = ProblemData()
